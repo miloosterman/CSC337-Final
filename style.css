@@ -1,0 +1,59 @@
+html {
+    background-color: orchid;
+}
+
+body {
+    text-align: center;
+}
+
+button {
+    margin: 0 7em 0 7em;
+}
+
+hr {
+    width: 50%;
+}
+
+ul {
+    list-style: none;
+}
+
+#game-list {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 2em;
+}
+
+#game-list img {
+    width: 100px;
+    height: 100px;
+}
+
+#instructions {
+    width: 50%;
+    margin: auto;
+}
+
+#games-parent{
+    background-color: blueviolet;
+}
+
+#sign-in {
+    width: 50%;
+    margin: auto;
+}
+
+#sign-in2 {
+    margin-bottom: 2em;
+}
+
+#sign-in input {
+    display: inline-block;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+#sign-in #submit {
+    margin-top: 1em;
+    width: 50%;
+}

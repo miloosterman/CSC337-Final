@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GamePage</title>
+</head>
+
+<body id="selection-body">
+    <img src="images/gamepage-logo.gif" alt="">
+    <form id="sign-in2" action="/selection.html" method="post">
+        <label for="email">Username:</label>
+        <input type="email" id="email" name="email" required>
+        <label for="password">Password: </label>
+        <input type="password" id="password" name="password" required>
+        <input type="submit" id="submit" name="submit" value="Sign On">
+        <p>New user?</p>
+        <input type="submit" id="new-user" name="new-submit" value="Create Account">
+    </form>
+    <hr>
+    <section id="rankings">
+        <button>Scoreboard</button>
+        <button>Ranking</button>
+    </section>
+    <hr>
+    <h2>Choose Your Game!</h2>
+    <section id="games-parent">
+        <ul id="game-list">
+            <figure>
+                <li><a href="./checkers.html"><img src="images/snake.jpg" alt="snake image"></a></li>
+                <figcaption>Snake</figcaption>
+            </figure>
+            <figure>
+                <li><a href="./tictactoe.html"><img src="images/tictactoe.jpg" alt="tic-tac-toe image"></a></li>
+                <figcaption>Tic-Tac-Toe</figcaption>
+            </figure>
+            <figure>
+                <li><a href="./checkers.html"><img src="images/checkers.jpg" alt="checkers image"></a></li>
+                <figcaption>Checkers</figcaption>
+            </figure>
+            <figure>
+                <li><a href="./help.html"><img src="images/help-img.jpg" alt="question mark image"></a></li>
+                <figcaption>Help</figcaption>
+            </figure>
+        </ul>
+    </section>
+</body>
+
+</html>
