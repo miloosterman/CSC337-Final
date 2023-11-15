@@ -61,6 +61,10 @@ ul {
     background-color: blueviolet;
 }
 
+#rankings {
+    display: inline-block;
+}
+
 #sign-in {
     display: flex;
     flex-direction: column;
