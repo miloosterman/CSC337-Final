@@ -13,4 +13,4 @@ Group Members:
     
 Concept:
 
-    A small website consisting of several games similar to coolmathgames.com with tictactoe, checkers, snake, and tetris.
+    A small website consisting of several games similar to coolmathgames.com with tictactoe, checkers, snake, and tetris. 
