@@ -2,7 +2,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
-app.use(express.static('public_html'));
+app.use(express.static('tic_tac_toe_ai_public_html'));
 const fs = require('fs');
 app.use(express.json());
 const parser = require('body-parser');
