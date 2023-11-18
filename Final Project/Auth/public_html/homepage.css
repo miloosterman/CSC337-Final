@@ -1,0 +1,143 @@
+
+#title{
+    position: fixed;
+    color: black;
+    margin-top: 30vh;
+    margin-left: 85vh;
+    font-size: 30px;
+}
+
+#GameLogo {
+    position: fixed;
+    margin-top: -2vh;
+    margin-left: -2vh;
+    padding-bottom: 78vh;
+    padding-top: 68px;
+    background-color: lightseagreen;
+    padding-right: 77vh;
+    padding-left: 80vh;
+}
+
+
+/* Styling the Scoreboard button */
+#Scoreboard {
+    position: fixed;
+    margin-top: 30vh;
+    font-size: 30px;
+    margin-left: 141vh;
+    background-color: antiquewhite;
+    border-style: solid;
+    border-width: 3px;
+}
+
+#Scoreboard:hover {
+    background-color: #555;
+}
+
+/* Styling the Ranking button */
+#Ranking {
+    position: fixed;
+    margin-top: 30vh;
+    margin-left: 20vh;
+    font-size: 31px;
+    border-style: solid;
+    background-color: antiquewhite;
+}
+
+#Ranking:hover {
+    position:fixed;
+}
+
+/* Styling the heading "Choose Your Game!" */
+#ChooseGameHeading {
+    position:fixed;
+}
+
+/* Styling the "Need help?" link */
+#help {
+    position: fixed;
+    margin-left: 95vh;
+    margin-top: 48vh;
+    font-size: 3vh;
+}
+
+#help:hover {
+    text-decoration: underline;
+    position:fixed;
+}
+
+/* Styling the game list */
+#game-list {
+    position: fixed;
+    margin-top: 38vh;
+    color:lightseagreen;
+}
+
+/* Styling the Snake game link */
+#snakeGame {
+    position: fixed;
+    height: 10px;
+    margin-left: -53vh;
+    margin-top: -86px;
+}
+
+/* Styling the Tic-Tac-Toe game link */
+#ticTacGame {
+    position: fixed;
+    margin-top: -16vh;
+    margin-left: 16vh;
+}
+
+/* Styling the Checkers game link */
+#checkersGame {
+    position: fixed;
+    margin-top: -21vh;
+    margin-left: 81vh;
+}
+
+/* Styling each game figure */
+#game-list img {
+    margin-left: 60vh;
+    position: fixed;
+    width: 33vh;
+    margin-top: 35vh;
+}
+
+/* Styling the Snake game caption */
+#Snake {
+    position: fixed;
+    margin-top: 17vh;
+    margin-left: 20vh;
+    font-size: 20px;
+    color: antiquewhite;
+}
+
+/* Styling the Tic-Tac-Toe game caption */
+#Tic {
+    position: fixed;
+    margin-left: 85vh;
+    font-size: 20px;
+    margin-top: 12vh;
+    color: antiquewhite;
+}
+
+/* Styling the Checkers game caption */
+#check {
+    position: fixed;
+    margin-left: 153vh;
+    font-size: 22px;
+    margin-top: 7vh;
+    color: antiquewhite;
+}
+
+#rankDesc{
+    position: fixed;
+    color: antiquewhite;
+}
+#scoreDesc{
+    position: fixed;
+    color: antiquewhite;
+    margin-left: 117vh;
+
+}
+

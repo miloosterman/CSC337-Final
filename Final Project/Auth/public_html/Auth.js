@@ -30,7 +30,7 @@ function login(event) {
     .then((data) => {
       console.log(data);
       localStorage.setItem('username', data.username);
-      window.location.href = 'example.html';
+      window.location.href = 'Homepage.html';
     })
     .catch((error) => {
       document.getElementById('login-error-message').textContent = error.message;
@@ -58,7 +58,7 @@ function register(event) {
     .then((data) => {
       console.log(data);
       localStorage.setItem('username', data.username);
-      window.location.href = 'example.html'; // Redirect to home after registration
+      window.location.href = 'Homepage.html'; // Redirect to home after registration
     })
     .catch((error) => {
       document.getElementById('register-error-message').textContent = error.message;

@@ -74,10 +74,10 @@ function authenticate(req, res, next) {
       sessions[c.login.username].id == c.login.sessionID) {
       next();
     } else {
-      res.redirect('/example.html');
+      res.redirect('/Homepage.html');
     }
   }  else {
-    res.redirect('/example.html');
+    res.redirect('/Homepage.html');
   }
 }
 
