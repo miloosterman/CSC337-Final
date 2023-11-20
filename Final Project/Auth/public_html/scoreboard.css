@@ -1,0 +1,42 @@
+#Scores{
+    position: fixed;
+    margin-left: -1vh;
+    font-size: 6vh;
+    background-color: lightblue;
+    padding-left: 38%;
+    padding-right: 35.5%;
+    padding-top: 9%;
+    margin-top: -5vh;
+    padding-bottom: 87vh;
+    text-align: center;
+}
+
+#scorings{
+    margin-top: 29vh;
+    position: fixed;
+    font-size: 30px;
+    text-align: center;
+    margin-left: 100vh;
+}
+#score-display{
+    position: fixed;
+    border-width: 7px;
+    border-style: solid;
+    border-color: black;
+    background-color: antiquewhite;
+    padding-top: 55vh;
+    margin-top: 36vh;
+    margin-left: 33vh;
+    padding-left: 114vh;
+    padding-right: 38vh;
+    
+}
+#GameLogo {
+    position: fixed;
+    margin-top: -2vh;
+    margin-left: -2vh;
+    padding-bottom: 78vh;
+    padding-top: 8px;
+    padding-right: 77vh;
+    padding-left: 80vh;
+}

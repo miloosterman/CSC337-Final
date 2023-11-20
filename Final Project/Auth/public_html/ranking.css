@@ -1,0 +1,41 @@
+#Cranking{
+    position: fixed;
+    margin-left: -1vh;
+    font-size: 6vh;
+    background-color: lightblue;
+    padding-left: 36%;
+    padding-right: 31.5%;
+    padding-top: 9%;
+    margin-top: -2vh;
+    padding-bottom: 87vh;
+}
+
+#lead{
+    margin-top: 29vh;
+    position: fixed;
+    font-size: 30px;
+    text-align: center;
+    margin-left: 100vh;
+}
+#rank-display{
+    position: fixed;
+    border-width: 7px;
+    border-style: solid;
+    border-color: black;
+    background-color: antiquewhite;
+    padding-top: 55vh;
+    margin-top: 36vh;
+    margin-left: 33vh;
+    padding-left: 114vh;
+    padding-right: 38vh;
+    
+}
+#GameLogo {
+    position: fixed;
+    margin-top: -2vh;
+    margin-left: -2vh;
+    padding-bottom: 78vh;
+    padding-top: 8px;
+    padding-right: 77vh;
+    padding-left: 80vh;
+}
