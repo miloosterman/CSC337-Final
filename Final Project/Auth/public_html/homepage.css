@@ -34,19 +34,9 @@
     background-color: #555;
 }
 
-/* Styling the Ranking button */
-#Ranking {
-    position: fixed;
-    margin-top: 30vh;
-    margin-left: 20vh;
-    font-size: 31px;
-    border-style: solid;
-    background-color: antiquewhite;
-}
 
-#Ranking:hover {
-    position:fixed;
-}
+
+
 
 /* Styling the heading "Choose Your Game!" */
 #ChooseGameHeading {

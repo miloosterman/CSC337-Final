@@ -40,3 +40,18 @@
     padding-right: 77vh;
     padding-left: 80vh;
 }
+#names{
+    position: fixed;
+    color: Black;
+    margin-top: 30vh;
+    margin-left: 31vh;
+    font-size: 25px;
+}
+
+#Game-names{
+    position: fixed;
+    color: black;
+    margin-top: 30vh;
+    margin-left: 55vh;
+    font-size: 23px;
+}
