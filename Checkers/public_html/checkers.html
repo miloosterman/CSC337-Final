@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head> 
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="checkersStyle.css">
+	<script src='checkersFunctions.js'></script>
+	<title>Checkers</title>
+	<!--
+	title: checkers.html
+	author: Joshua S. Andrews
+	purpose: contains the html for a checkers game.
+	-->
+</head>
+
+<body onload='drawCheckers();'>
+	<h1>Checkers</h1>
+	<h2>View Scoreboard</h2>
+	<button id="home" 
+		onclick="location.href = '../../Final Project/Auth/public_html/Homepage.html'">
+		Back To Main</button>
+	<div id='gameContainer'>
+		<table id='boardContainer'>
+		</table>
+	</div>
+	<div id='game'></div>
+	<div id='turn'></div>
+</body>
+
