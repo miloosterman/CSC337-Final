@@ -1,3 +1,12 @@
+/*
+Keala Goodell
+This server creats the tic-tac-toe
+gameboard, and saves a users space
+to the board, before using a simple
+AI to choose a space. This also 
+checks for a game over. And saves 
+a users wins to their account.
+*/
 //base requierments
 const express = require('express');
 const mongoose = require('mongoose');

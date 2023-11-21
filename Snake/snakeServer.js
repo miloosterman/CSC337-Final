@@ -1,3 +1,11 @@
+/*
+Keala Goodell 
+This server connects to the 
+main server, and uses a users username
+to save their score after the game ends
+and add it to the leaderboard.
+*/
+
 //base requierments
 const express = require('express');
 const mongoose = require('mongoose');
