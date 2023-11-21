@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang = "en">
+    <head>
+        <!--use style and script-->
+        <meta charset="utf-8">
+        <link rel="stylesheet" 
+        type="text/css"
+        id="main"
+        href="snakestyle.css">
+        <script src = "snakeclient.js"></script>
+        <title>Snake</title>
+    </head>
+    <body onload="drawSnake()">
+        <h1>Snake</h1>
+        <h2>View Scoreboard</h2>
+        <button id="home" onclick="location.href = '../../Final Project/Auth/public_html/Homepage.html'">Back To Main</button>
+        <div class="gameboard">
+            <div id="points">Score: 0</div>
+            <canvas id="snakehome" width="400" height="400" style="border:1px solid #ffffff;"></canvas>
+        </div>
+    </body>
+</html>
