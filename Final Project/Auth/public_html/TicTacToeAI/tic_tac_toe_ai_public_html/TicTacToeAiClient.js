@@ -59,11 +59,11 @@ function playerTurn(piece, move) {
                 aiElement.innerHTML = 'O';
             } else {
                 alert('Game Over');
-                gameEnded = true; // Set the flag to true when the game ends
                 var button = document.createElement("button");
                 button.id = "Replay";
                 button.innerHTML = "Replay";
                 document.body.appendChild(button)
+                gameEnded = true; // Set the flag to true when the game ends
             }
         })
         .catch( (error) => {
