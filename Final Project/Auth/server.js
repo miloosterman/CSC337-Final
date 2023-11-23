@@ -29,10 +29,22 @@ db.once('open', () => {
 });
 
 const Schema = mongoose.Schema;
+
+// Scores
+const ScoreSchema = new Schema(
+  { Snake: Number,
+      TicTacWin: Number,
+      TicTacLoss: Number,
+      CheckerWin: Number,
+      CheckerLoss: Number });
+var Score = mongoose.model('Item', ScoreSchema);
+
 const UserSchema = new Schema({
   username: String,
   password: String,
+  scores: [mongoose.Schema.Types.ObjectId],
 });
+var User = mongoose.model('User', UserSchema)
 
 let sessions = {};
 
