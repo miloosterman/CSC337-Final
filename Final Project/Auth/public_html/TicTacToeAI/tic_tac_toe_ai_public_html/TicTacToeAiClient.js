@@ -58,8 +58,12 @@ function playerTurn(piece, move) {
                 let aiElement = document.getElementById(ai_e_id);
                 aiElement.innerHTML = 'O';
             } else {
-                alert('game over');
+                alert('Game Over');
                 gameEnded = true; // Set the flag to true when the game ends
+                var button = document.createElement("button");
+                button.id = "Replay";
+                button.innerHTML = "Replay";
+                document.body.appendChild(button)
             }
         })
         .catch( (error) => {

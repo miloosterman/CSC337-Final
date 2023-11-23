@@ -122,6 +122,10 @@ function updateBoard()
     if(newhead.x > 390 || newhead.x < 0 || newhead.y > 390 || newhead.y < 0){
         gameover = true;
         alert('Game Over');
+        var button = document.createElement("button");
+        button.id = "Replay";
+        button.innerHTML = "Replay";
+        document.body.appendChild(button)
     }
 
     for(i = 0; i < snake.length; i++){
@@ -129,6 +133,10 @@ function updateBoard()
         if(newhead.x == snake[i].x && newhead.y == snake[i].y){
             gameover = true;
             alert('Game Over');
+            var button = document.createElement("button");
+            button.id = "Replay";
+            button.innerHTML = "Replay";
+            document.body.appendChild(button)
         }
     }
     if(newhead.x == food.x && newhead.y == food.y){
