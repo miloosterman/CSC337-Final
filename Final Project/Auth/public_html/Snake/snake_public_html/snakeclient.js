@@ -4,15 +4,18 @@ let grid = [];
 let gridSize = 10; // Change this to increase/decrease the size of the grid
 let snakeboard = null;
 let snakeboard_ctx = null;
-let direction = "R";
 let snake = [];
 let food = {x: 200, y: 200};
 let wait_ms = 300;
 let gameover = true;
+let direction = "R";
 let score = 0;
 
 function initGameBoard()
 { 
+    direction = "R";
+    score = 0;
+    document.getElementById('points').innerHTML = "Score: " + score;
     wait_ms = 300;
     snake = [{x: 200, y: 200},  {x: 200, y: 200},  {x: 200, y: 200},  {x: 200, y: 200},  {x: 200, y: 200},];
     gameBoard = document.getElementsByClassName('gameboard');
@@ -100,11 +103,6 @@ function updateFood()
 
 function updateBoard()
 {
-    // this needs to be in the loop
-    // move snake
-    // if ateFood()
-    //   updateFood()
-    // else
     let newhead = {x: snake[0].x, y: snake[0].y};
     if(direction == 'U'){
     newhead.y = newhead.y - gridSize;
@@ -122,6 +120,13 @@ function updateBoard()
     if(newhead.x > 390 || newhead.x < 0 || newhead.y > 390 || newhead.y < 0){
         gameover = true;
         alert('Game Over');
+        var button = document.createElement("button");
+        button.id = "Replay";
+        button.innerHTML = "Replay";
+        button.onclick = function() {
+          Replay();
+        };
+        document.body.appendChild(button)
     }
 
     for(i = 0; i < snake.length; i++){
@@ -129,6 +134,13 @@ function updateBoard()
         if(newhead.x == snake[i].x && newhead.y == snake[i].y){
             gameover = true;
             alert('Game Over');
+            var button = document.createElement("button");
+            button.id = "Replay";
+            button.innerHTML = "Replay";
+            button.onclick = function() {
+              Replay();
+            };
+            document.body.appendChild(button)
         }
     }
     if(newhead.x == food.x && newhead.y == food.y){
@@ -160,6 +172,18 @@ async function startGame()
         await sleep(wait_ms);
         console.log("2"); 
     }
+}
+
+function Replay(){
+    // Get the button element
+    var button = document.getElementById("Replay");
+    
+    // Remove the button from the document
+   if (button) {
+        button.parentNode.removeChild(button);
+    }
+    initGameBoard();
+    startGame();
 }
 
 function drawSnake() 
