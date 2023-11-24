@@ -194,25 +194,6 @@ let done_yet = 0;
 let resetting = -1;
 let reset_counter = 0;
 
-
-function startOver() {
-    board = [];
-    selected = 0;
-    done_yet = 0;
-    resetting = -1;
-    reset_counter = 0;
-    for (let i = 0; i < 9; i++) {
-        board.push(0);
-    }
-    sqXList.forEach(sq => {
-        document.getElementById(sq).style.display = 'none';
-    });
-    sqOList.forEach(sq => {
-        document.getElementById(sq).style.display = 'none';
-    });
-    document.getElementById('sqE').style.display = 'none';
-}
-
 function openSpots() {
     let spots = [];
     for (let i = 0; i < 9; i++) {
@@ -233,13 +214,6 @@ function startOver() {
     for (let i = 0; i < 9; i++) {
         board.push(0);
     }
-    sqXList.forEach(sq => {
-        document.getElementById(sq).style.display = 'none';
-    });
-    sqOList.forEach(sq => {
-        document.getElementById(sq).style.display = 'none';
-    });
-    document.getElementById('sqE').style.display = 'none';
 }
 
 function checkForDone() {
@@ -366,8 +340,11 @@ app.post('/play/move/:LOCATION', (req, res) => {
     res.send(JSON.stringify(retval));
 })
 
-// Call startOver when the page loads
-//window.onload = startOver;
+app.post('/reset/tictac/', (req, res) => {
+  let reload = startOver()
+  res.send(JSON.stringify(reload));
+
+})
 
 
 app.listen(port, () => {

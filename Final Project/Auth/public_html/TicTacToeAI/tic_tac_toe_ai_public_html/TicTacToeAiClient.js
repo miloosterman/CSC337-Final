@@ -47,14 +47,28 @@ window.onload = function() {
             });
     }
 
-    function  ReplayTicTac(){
+    function ReplayTicTac() {
         let url = 'http://localhost:80/reset/tictac/';
-        // Get the button element
-        var button = document.getElementById("Replay");
-        
-        // Remove the button from the document
-        if (button) {
-            button.parentNode.removeChild(button);
-        }
+        fetch(url, { method: 'POST' })
+        .then(data => {
+            // Get the button element
+            var button = document.getElementById("Replay");
+            
+            // Remove the button from the document
+            if (button) {
+                button.parentNode.removeChild(button);
+            }
+            document.getElementById('upleft').innerHTML = '';
+            document.getElementById('upmid').innerHTML = '';
+            document.getElementById('upright').innerHTML = '';
+            document.getElementById('midleft').innerHTML = '';
+            document.getElementById('midmid').innerHTML = '';
+            document.getElementById('midright').innerHTML = '';
+            document.getElementById('downleft').innerHTML = '';
+            document.getElementById('downmid').innerHTML = '';
+            document.getElementById('downright').innerHTML = '';
+            gameEnded = false;
+        });
     }
+    
 }
