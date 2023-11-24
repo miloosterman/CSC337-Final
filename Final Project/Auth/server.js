@@ -268,10 +268,12 @@ function onTriggerEnter(other) {
     }
 }
 
-app.post('/play/move/:LOCATION', (req, res) => {
+app.post('/play/move/:LOCATION/:PIECE/:MODE', (req, res) => {
     const movelocation = req.params.LOCATION;
-    console.log('LOCATION');
+    const piece = req.params.PIECE;
+    const mode = req.params.MODE;
     console.log(movelocation);
+    console.log(piece)
     let winner = ''; // game over state
     let aimove = -1; // no AI move
     if (done_yet == 0) {

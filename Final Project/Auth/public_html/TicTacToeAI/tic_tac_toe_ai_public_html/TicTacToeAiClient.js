@@ -18,9 +18,10 @@ window.onload = function() {
         }
         player_e_id = movenames[move];
         console.log(piece, move, player_e_id);
+        let mode = 'pve'
         let playerElement = document.getElementById(player_e_id);
-        let url = 'http://localhost:80/play/move/' + move;
-        fetch(url, { method: 'POST', body: move })
+        let url = 'http://localhost:80/play/move/' + move +'/'+ piece + '/' + mode;
+        fetch(url, { method: 'POST', body: move, piece, mode })
             .then(response => response.json())
             .then(data => {
                 playerElement.innerHTML = piece;
