@@ -1,39 +1,9 @@
 const movenames = ["upleft", "upmid", "upright", "midleft", "midmid", "midright", "downleft", "downmid", "downright"];
-function playerTurnUL(){
-    playerTurn('X', 0);
-}
 
-function playerTurnUM(){
-    playerTurn('X', 1);
-}
-
-function playerTurnUR(){
-    playerTurn('X', 2);
-}
-
-function playerTurnML(){
-    playerTurn('X', 3);
-}
-
-function playerTurnMM(){
-    playerTurn('X', 4);
-}
-
-function playerTurnMR(){
-    playerTurn('X', 5);
-}
-
-function playerTurnDL(){
-    playerTurn('X', 6);
-}
-
-function playerTurnDM(){
-    playerTurn('X', 7);
-}
-
-function playerTurnDR(){
-    playerTurn('X', 8);
-}
+movenames.forEach((moveName, index) => {
+    let moveElement = document.getElementById(moveName);
+    moveElement.addEventListener('click', () => playerTurn('X', index));
+});
 
 let gameEnded = false; // Add a flag to track if the game has ended
 
@@ -62,6 +32,9 @@ function playerTurn(piece, move) {
                 var button = document.createElement("button");
                 button.id = "Replay";
                 button.innerHTML = "Replay";
+                button.onclick = function() {
+                ReplayTicTac();
+                };
                 document.body.appendChild(button)
                 gameEnded = true; // Set the flag to true when the game ends
             }
@@ -70,4 +43,15 @@ function playerTurn(piece, move) {
             console.log('Item not added');
             console.log(error);
         });
+}
+
+function  ReplayTicTac(){
+    let url = 'http://localhost:80/reset/tictac/';
+     // Get the button element
+     var button = document.getElementById("Replay");
+    
+     // Remove the button from the document
+    if (button) {
+         button.parentNode.removeChild(button);
+     }
 }
