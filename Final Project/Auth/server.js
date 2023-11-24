@@ -167,6 +167,8 @@ let selected = 0;
 let done_yet = 0;
 let resetting = -1;
 let reset_counter = 0;
+const X_PIECE = 1;
+const O_PIECE = 2;
 
 
 function startOver() {
@@ -202,62 +204,40 @@ function startOver() {
     }
 }
 
-function checkForDone() {
-    let check = 1;
+function checkForWinner(check) {
     if (board[0] == check && board[1] == check && board[2] == check) {
-        return check;
+        return true;
     }
     if (board[3] == check && board[4] == check && board[5] == check) {
-        return check;
+        return true;
     }
     if (board[6] == check && board[7] == check && board[8] == check) {
-        return check;
+        return true;
     }
     if (board[0] == check && board[3] == check && board[6] == check) {
-        return check;
+        return true;
     }
     if (board[1] == check && board[4] == check && board[7] == check) {
-        return check;
+        return true;
     }
     if (board[2] == check && board[5] == check && board[8] == check) {
-        return check;
+        return true;
     }
     if (board[0] == check && board[4] == check && board[8] == check) {
-        return check;
+        return true;
     }
     if (board[2] == check && board[4] == check && board[6] == check) {
-        return check;
+        return true;
     }
-    check = 2;
-    if (board[0] == check && board[1] == check && board[2] == check) {
-        return check;
-    }
-    if (board[3] == check && board[4] == check && board[5] == check) {
-        return check;
-    }
-    if (board[6] == check && board[7] == check && board[8] == check) {
-        return check;
-    }
-    if (board[0] == check && board[3] == check && board[6] == check) {
-        return check;
-    }
-    if (board[1] == check && board[4] == check && board[7] == check) {
-        return check;
-    }
-    if (board[2] == check && board[5] == check && board[8] == check) {
-        return check;
-    }
-    if (board[0] == check && board[4] == check && board[8] == check) {
-        return check;
-    }
-    if (board[2] == check && board[4] == check && board[6] == check) {
-        return check;
-    }
+    return false;
+  }
+
+  function checkForCat() {
     let spots = openSpots();
-    if (spots.length == 0) {
-        return 3;
+    if (spots.length <= 0) {
+        return true;
     }
-    return 0;
+    return false;
 }
 
 function update() {
@@ -292,36 +272,34 @@ app.post('/play/move/:LOCATION', (req, res) => {
     const movelocation = req.params.LOCATION;
     console.log('LOCATION');
     console.log(movelocation);
-    let winner = -1; // game over state
+    let winner = ''; // game over state
     let aimove = -1; // no AI move
     if (done_yet == 0) {
-    board[movelocation] = 1;
-    sqXList.push(movelocation); // not sure if this is needed
-    winner = checkForDone();  // should return 0 or 1
-    if (winner == 1) {
-      done_yet = 1;
-    } else {
-      let o = openSpots();
-      if (o.length == 0) {
-        winner = -1; // Nobody wins, AI no move (client needs to respond to no ai move winner 0)
-        done_yet = -1;
-       } else {
+      board[movelocation] = 1;
+      sqXList.push(movelocation); // not sure if this is needed
+      if (checkForWinner(X_PIECE)) {
+        winner = 'X';
+        done_yet = 1;
+      } else if (checkForCat()) {
+        winner = 'C';
+        done_yet = 1;
+      } else {
+        let o = openSpots();
         let aipos = Math.floor(Math.random() * o.length);
         aimove = o[aipos];
         board[aimove] = 2;
         sqOList.push(aimove); // not sure if this is needed
-        winner = checkForDone();
-        if (winner == 2) {
-           done_yet = 1;
-        } else if (o.length == 1) {
-           done_yet = 1;
-           winner = -1;
-         }
-       }
-    }
+        if (checkForWinner(O_PIECE)) {
+          winner = 'O';
+          done_yet = 1;
+        } else if (checkForCat()) {
+          winner = 'C';
+          done_yet = 1;
+        }
+      }
     }
     
-    let retval = {"aimove":aimove, "winner":winner};
+    let retval = {"aimove":aimove, "winner":winner, "board": board};
     console.log(retval);
     res.send(JSON.stringify(retval));
 })
