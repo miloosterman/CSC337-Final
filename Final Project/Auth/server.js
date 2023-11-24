@@ -163,17 +163,13 @@ app.get('/get/users', async (req, res) => {
 let sqXList = [];
 let sqOList = [];
 let board = [0,0,0,0,0,0,0,0,0];
-let selected = 0;
 let done_yet = 0;
-let resetting = -1;
-let reset_counter = 0;
 const X_PIECE = 1;
 const O_PIECE = 2;
 
 
 function startOver() {
     board = [];
-    selected = 0;
     done_yet = 0;
     resetting = -1;
     reset_counter = 0;
@@ -195,7 +191,6 @@ function openSpots() {
 
 function startOver() {
     board = [];
-    selected = 0;
     done_yet = 0;
     resetting = -1;
     reset_counter = 0;
@@ -238,34 +233,6 @@ function checkForWinner(check) {
         return true;
     }
     return false;
-}
-
-function update() {
-    if (resetting > 0) {
-        reset_counter--;
-        if (reset_counter <= 0) {
-            document.getElementById(sqXList[resetting]).style.display = 'none';
-            document.getElementById(sqXList[resetting]).style.display = 'none';
-            resetting--;
-            reset_counter = 20;
-        }
-        if (resetting <= 0) {
-            startOver();
-        }
-        return;
-    }
-    // ... translate the rest of the Update method here ...
-}
-
-function onTriggerEnter(other) {
-    let test_selected = 0;
-    if (other.id == "square1") {
-        test_selected = 1;
-    }
-    // ... repeat for all conditions ...
-    if (test_selected > 0 && board[test_selected-1] == 0) {
-        selected = test_selected;
-    }
 }
 
 app.post('/play/move/:LOCATION/:PIECE/:MODE', (req, res) => {

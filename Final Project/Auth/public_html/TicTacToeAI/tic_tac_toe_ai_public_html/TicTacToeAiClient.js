@@ -18,33 +18,27 @@ window.onload = function() {
         }
         player_e_id = movenames[move];
         console.log(piece, move, player_e_id);
-        let mode = 'pve'
+        let gamemode = 'pve';
         let playerElement = document.getElementById(player_e_id);
-        let url = 'http://localhost:80/play/move/' + move +'/'+ piece + '/' + mode;
-        fetch(url, { method: 'POST', body: move, piece, mode })
+        let url = 'http://localhost:80/play/move/' + move +'/'+ piece + '/' + gamemode;
+        fetch(url, { method: 'POST', body: move, piece, gamemode })
             .then(response => response.json())
             .then(data => {
-                playerElement.innerHTML = piece;
                 let winner = data.winner;
-                //if (winner == '') {
-                    console.log(data);
-                   // let aiMove = data.aimove;
-                    let board = data.board;
-                    console.log(board);
-                    for (let i = 0; i < board.length; i++) {
-                        let playerpiece = '';
-                        if (board[i] == 1) {
-                            playerpiece = 'X';
-                        } else if (board[i] == 2) {
-                            playerpiece = 'O';
-                        } else {
-                            continue;
-                        }
-                        let e_id = movenames[i];
-                        let aiElement = document.getElementById(e_id);
-                        aiElement.innerHTML = playerpiece;
+                let board = data.board;
+                for (let i = 0; i < board.length; i++) {
+                    let playerpiece = '';
+                    if (board[i] == 1) {
+                        playerpiece = 'X';
+                    } else if (board[i] == 2) {
+                        playerpiece = 'O';
+                    } else {
+                        continue;
                     }
-             //   } 
+                    let e_id = movenames[i];
+                    let aiElement = document.getElementById(e_id);
+                    aiElement.innerHTML = playerpiece;
+                }
                 if(winner != "") { 
                     alert('Game Over Winner Is: ' + winner);
                     var button = document.createElement("button");
