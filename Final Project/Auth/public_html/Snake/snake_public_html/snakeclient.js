@@ -122,10 +122,10 @@ function updateBoard()
     if(newhead.x > 390 || newhead.x < 0 || newhead.y > 390 || newhead.y < 0){
         gameover = true;
         alert('Game Over');
-        const ReplayButton = document.createElement('button');
-        ReplayButton.innerText = 'Play Again?';
-        ReplayButton.id = "Replay";
-        ReplayButton.onclick = function() {
+        var button = document.createElement("button");
+        button.id = "Replay";
+        button.innerHTML = "Replay";
+        button.onclick = function() {
           Replay();
         };
         document.body.appendChild(button)
@@ -136,10 +136,10 @@ function updateBoard()
         if(newhead.x == snake[i].x && newhead.y == snake[i].y){
             gameover = true;
             alert('Game Over');
-            const ReplayButton = document.createElement('button');
-            ReplayButton.id = "Replay";
-            ReplayButton.innerText = 'Play Again?';
-            ReplayButton.onclick = function() {
+            var button = document.createElement("button");
+            button.id = "Replay";
+            button.innerHTML = "Replay";
+            button.onclick = function() {
               Replay();
             };
             document.body.appendChild(button)
