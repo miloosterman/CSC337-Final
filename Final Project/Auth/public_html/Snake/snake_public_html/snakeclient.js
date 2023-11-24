@@ -4,15 +4,17 @@ let grid = [];
 let gridSize = 10; // Change this to increase/decrease the size of the grid
 let snakeboard = null;
 let snakeboard_ctx = null;
-let direction = "R";
 let snake = [];
 let food = {x: 200, y: 200};
 let wait_ms = 300;
 let gameover = true;
+let direction = "R";
 let score = 0;
 
 function initGameBoard()
 { 
+    direction = "R";
+    score = 0;
     wait_ms = 300;
     snake = [{x: 200, y: 200},  {x: 200, y: 200},  {x: 200, y: 200},  {x: 200, y: 200},  {x: 200, y: 200},];
     gameBoard = document.getElementsByClassName('gameboard');
@@ -100,11 +102,6 @@ function updateFood()
 
 function updateBoard()
 {
-    // this needs to be in the loop
-    // move snake
-    // if ateFood()
-    //   updateFood()
-    // else
     let newhead = {x: snake[0].x, y: snake[0].y};
     if(direction == 'U'){
     newhead.y = newhead.y - gridSize;
@@ -177,7 +174,13 @@ async function startGame()
 }
 
 function Replay(){
-    score = 0;
+    // Get the button element
+    var button = document.getElementById("Replay");
+    
+    // Remove the button from the document
+   if (button) {
+        button.parentNode.removeChild(button);
+    }
     initGameBoard();
     startGame();
 }
