@@ -44,7 +44,7 @@ const UserSchema = new Schema({
   password: String,
   scores: [mongoose.Schema.Types.ObjectId],
 });
-var User = mongoose.model('User', UserSchema)
+//var User = mongoose.model('User', UserSchema)
 
 let sessions = {};
 
