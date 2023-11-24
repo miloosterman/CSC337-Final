@@ -124,6 +124,7 @@ function updateBoard()
         alert('Game Over');
         const ReplayButton = document.createElement('button');
         ReplayButton.innerText = 'Play Again?';
+        ReplayButton.id = "Replay";
         ReplayButton.onclick = function() {
           Replay();
         };
@@ -136,6 +137,7 @@ function updateBoard()
             gameover = true;
             alert('Game Over');
             const ReplayButton = document.createElement('button');
+            ReplayButton.id = "Replay";
             ReplayButton.innerText = 'Play Again?';
             ReplayButton.onclick = function() {
               Replay();
