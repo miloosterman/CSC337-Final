@@ -15,6 +15,7 @@ function initGameBoard()
 { 
     direction = "R";
     score = 0;
+    document.getElementById('points').innerHTML = "Score: " + score;
     wait_ms = 300;
     snake = [{x: 200, y: 200},  {x: 200, y: 200},  {x: 200, y: 200},  {x: 200, y: 200},  {x: 200, y: 200},];
     gameBoard = document.getElementsByClassName('gameboard');
