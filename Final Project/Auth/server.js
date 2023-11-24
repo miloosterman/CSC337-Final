@@ -33,7 +33,17 @@ const UserSchema = new Schema({
   username: String,
   salt: String,  
   hash: String,  
+  scores: [mongoose.Schema.Types.ObjectId],
 });
+
+// Items
+var ScoreSchema = new Schema(
+  { Snake: Number,
+      TicTacWin: Number,
+      TicTacLoss: Number,
+      CheckerWin: Number,
+      CheckerLoss: Number });
+  var Score = mongoose.model('Item', ScoreSchema);
 
 let sessions = {};
 
@@ -168,13 +178,6 @@ function startOver() {
     for (let i = 0; i < 9; i++) {
         board.push(0);
     }
-    sqXList.forEach(sq => {
-        document.getElementById(sq).style.display = 'none';
-    });
-    sqOList.forEach(sq => {
-        document.getElementById(sq).style.display = 'none';
-    });
-    document.getElementById('sqE').style.display = 'none';
 }
 
 function openSpots() {
@@ -197,13 +200,6 @@ function startOver() {
     for (let i = 0; i < 9; i++) {
         board.push(0);
     }
-    sqXList.forEach(sq => {
-        document.getElementById(sq).style.display = 'none';
-    });
-    sqOList.forEach(sq => {
-        document.getElementById(sq).style.display = 'none';
-    });
-    document.getElementById('sqE').style.display = 'none';
 }
 
 function checkForDone() {
@@ -330,9 +326,11 @@ app.post('/play/move/:LOCATION', (req, res) => {
     res.send(JSON.stringify(retval));
 })
 
-// Call startOver when the page loads
-//window.onload = startOver;
 
+app.post('/reset/tictac/', (req, res) => {
+    let reset = startOver();
+    res.send(JSON.stringify(reset));
+})
 
 app.listen(port, () => {
   console.log(`App listening at http://localhost:${port}`);
