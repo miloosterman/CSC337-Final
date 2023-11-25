@@ -262,7 +262,7 @@ app.post('/play/move/:LOCATION/:PIECE/:MODE', (req, res) => {
           winner = 'O';
           done_yet = 1;
         } else if (checkForCat()) {
-          winner = 'C';
+          winner = 'Tie Game';
           done_yet = 1;
         }
       }
