@@ -8,79 +8,67 @@ Purpose: Houses all functions necessary for checkers.html
 Representation of a checker board as a 2D array.
 -1 is Player 1, 1 is Player 2, 0 is no game piece
 */
-{ var BOARD = [[]]; 
-  var TURN = 0;}
-
-/*
-Draws an 8x8 grid for a checkers game where a -1 is a Player 1 piece, 0 is an 
-empty square, and 1 is a Player 2 piece with numbers representing pieces
-*/
-function drawBoardInNumbers() {
-	let table = document.getElementById("boardContainer");
-	
-	let htmlString = "";
-	for (var r=0; r<8; r++) {
-		htmlString += "<tr>";
-		for (var c=0; c<8; c++) {
-			htmlString += "<td>"+BOARD[r[c]]+"</td>";
-		}
-		htmlString+="</tr>"
-	}
-	table.innerHTML = htmlString;
+{
+	var TURN=0;
+	var BOARD = [];
 }
 
-// Initializes a new game Array for checkers
-function newGame() {
-	for (var r = 0; r < 8; r++) {
-		for (var c = 0; c < 8; c++) {
-			if (c%2 == 0) {
-				if (r < 3) {
-					BOARD[r[c]] = -1;
-				} else if (r>5) {
-					BOARD[r[c]] = 1;
+// Generates the backing initial array of a checkers game
+function generateBoard() {
+	if (TURN == 0) {
+		for (var row=0;row<8;row++) {
+			for (var col=0;col<8;col++){
+				if (row<3) {
+					if(row%2==0 && col%2!=0) {
+						BOARD[row*8+col]=-1;
+					} else if (row%2!=0 && col%2==0){
+						BOARD[row*8+col]=-1;
+					} else {
+						BOARD[row*8+col]=0;
+					}
+				} else if (row>4) {
+					if(row%2!=0 && col%2==0) {
+						BOARD[row*8+col]=1;
+					} else if (row%2==0 && col%2!=0) {
+						BOARD[row*8+col]=1;
+					} else {
+						BOARD[row*8+col]=0;
+					}
 				} else {
-					BOARD[r[c]] = 0;
-			} else {
-				if (r == 1) {
-					BOARD[r[c]] = -1;
-				} else if (r == 5 || r == 7) {
-					BOARD[r[c]] = 1;
-				} else {
-					BOARD[r[c]] = 0;
+					BOARD[row*8+col]=0
 				}
 			}
 		}
 	}
+	console.log(BOARD);
 }
 
-/*
-Draws a Checker Board with the specified piece locations in the table
-*/
 function drawBoard() {
-	game.innerHTML = "";
+	const canvas = document.querySelector('canvas'); 
+	const c = canvas.getContext('2d');
+
+	const cWidth = 400;
+	const cHeight = 400;
+
+	canvas.width = cWidth;
+	canvas.height = cHeight;
 	
-	for (let r = 0; r < 8; r++) {
-		const gameRow = BOARD[r];
-		let row = document.createElement('div');
-		row.setAttribute('class', 'row');
-		
-		for (let j = 0; j < element.length; j++) {
-			const elmnt = element[j]	
-}
-
-// Gets times current player has won
-
-// Shows which Player's turn it is
-function playerTurn() {
-	let indicator = document.getElementById('turn');
-	if (TURN < 0) {
-		// Player 1
-		indicator.innerHTML = "<p>Player 1's Turn</p>";
-	} else if (TURN > 0) {
-		indicator.innerHTML = "<p>Player 2's Turn</p>";
-	} else {
-		// No Game Running
-		indicator.innerHTML = "";
+	for (var row = 0; row<8; row++) {
+		for (var col = 0; col<8; col++) {
+			if ((row%2==0 && col%2!=0) || (row%2!=0 && col%2==0)) {
+				c.fillStyle = 'rgba(0,0,0,1.0)';
+			} else {
+				c.fillStyle = 'rgba(255,0,0,1.0)';
+			}
+			// draws checker pattern
+			c.fillRect(((cWidth/8)*row),
+						((cHeight/8)*col),
+						(cWidth/8), 
+						(cHeight/8));
+			// put player pieces in
+		}
+	}
+	console.log(canvas);
 }
 
 /*
@@ -88,5 +76,6 @@ Used to run all necessary functions of Checkers including on initial
 load
 */
 function onLoad() {
-	newGame();
+	generateBoard();
+	drawBoard();
 }

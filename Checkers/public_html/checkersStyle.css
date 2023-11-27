@@ -4,7 +4,37 @@ author: Joshua S. Andrews
 purpose: Stores the css for a checkers webpage
 */
 
+
 body {
+	background-color: red;
+	color: black;
+	text-align: center;
+	height: 100%;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+#headings {
+	position: fixed;
+	top: 0;
+	height: 125pt;
+	background-color: blue;
+	width: 100%;
+}
+
+#gameSpace {
+	position: fixed;
+	top: 166.667px;
+	height: 100%;
+	width: 100%;
+	margin: 10px;
+	padding: 10px;
+	background-color: green;
+}
+
+canvas {
+	border: 1px solid black;
 	margin: 0;
 	padding: 0;
 }

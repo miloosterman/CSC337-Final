@@ -13,17 +13,28 @@
 	-->
 </head>
 
-<body onload='drawCheckers();'>
-	<h1>Checkers</h1>
-	<h2>View Scoreboard</h2>
-	<button id="home" 
-		onclick="location.href = '../../Final Project/Auth/public_html/Homepage.html'">
-		Back To Main</button>
-	<div id='gameContainer'>
-		<table id='boardContainer'>
-		</table>
+<body onload='onLoad();'>
+	<div id='headings'>
+		<h1>Checkers</h1>
+		<h2>View Scoreboard</h2>
+		<button id="home" 
+			onclick="location.href = '../../Final Project/Auth/public_html/Homepage.html'">
+			Back To Main
+		</button>
 	</div>
-	<div id='game'></div>
-	<div id='turn'></div>
+	<div id='gameSpace'>
+		<div class='pData' id='p1Data'>
+			<table id='p1Table' class='pTable'>
+			</table>
+		</div>
+		<div id='gameBoardArea'>
+			<canvas></canvas>
+		</div>
+		<div class='pData' id='p2Data'>
+			<table id='p2Table' class='pTable'>
+			</table>
+		</div>
+	</div>
 </body>
-
+-->
+</html>
