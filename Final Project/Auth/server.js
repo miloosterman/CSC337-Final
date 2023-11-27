@@ -77,6 +77,7 @@ function authenticate(req, res, next) {
   console.log(req.cookies);
   if (c != undefined && c.login != undefined) {
       let username = c.login.username; //grab the username from the cookie
+      console.log(username);
       if ( sessions[username] != undefined && sessions[username].id == c.login.sessionID ) {
           next();
       } else {
