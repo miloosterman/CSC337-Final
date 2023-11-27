@@ -157,31 +157,36 @@ app.get('/get/users', async (req, res) => {
 });
 
 
-//Keala Goodell 
-//Tic Tic Toe Stuff
+/*
+Keala Goodell
+This Server-Side Code is used for Tic-Tac-Toe. 
+*/
 
+//set lists to empty, board to empty, and 
+//X and O numerical id
 let sqXList = [];
 let sqOList = [];
-let board = [0,0,0,0,0,0,0,0,0];
-let done_yet = 0;
+let tictacboard = [0,0,0,0,0,0,0,0,0];
+let tictacdone_yet = 0;
 const X_PIECE = 1;
 const O_PIECE = 2;
 
-
-function startOver() {
-    board = [];
-    done_yet = 0;
-    resetting = -1;
-    reset_counter = 0;
+//clear board, reset done_yet back to false
+function tictacstartOver() {
+    tictacboard = [];
+    tictacdone_yet = 0;
+    tictacresetting = -1;
+    tictacreset_counter = 0;
     for (let i = 0; i < 9; i++) {
-        board.push(0);
+        tictacboard.push(0);
     }
 }
 
-function openSpots() {
+//check if board spot has been taken, if not then reset
+function tictacopenSpots() {
     let spots = [];
     for (let i = 0; i < 9; i++) {
-        if (board[i] == 0) {
+        if (tictacboard[i] == 0) {
             spots.push(i);
         }
     }
@@ -189,53 +194,47 @@ function openSpots() {
     return spots;
 }
 
-function startOver() {
-    board = [];
-    done_yet = 0;
-    resetting = -1;
-    reset_counter = 0;
-    for (let i = 0; i < 9; i++) {
-        board.push(0);
-    }
-}
-
-function checkForWinner(check) {
-    if (board[0] == check && board[1] == check && board[2] == check) {
+//check if game has been won
+function itctaccheckForWinner(check) {
+    if (tictacboard[0] == check && tictacboard[1] == check && tictacboard[2] == check) {
         return true;
     }
-    if (board[3] == check && board[4] == check && board[5] == check) {
+    if (tictacboard[3] == check && tictacboard[4] == check && tictacboard[5] == check) {
         return true;
     }
-    if (board[6] == check && board[7] == check && board[8] == check) {
+    if (tictacboard[6] == check && tictacboard[7] == check && tictacboard[8] == check) {
         return true;
     }
-    if (board[0] == check && board[3] == check && board[6] == check) {
+    if (tictacboard[0] == check && tictacboard[3] == check && tictacboard[6] == check) {
         return true;
     }
-    if (board[1] == check && board[4] == check && board[7] == check) {
+    if (tictacboard[1] == check && tictacboard[4] == check && tictacboard[7] == check) {
         return true;
     }
-    if (board[2] == check && board[5] == check && board[8] == check) {
+    if (tictacboard[2] == check && tictacboard[5] == check && tictacboard[8] == check) {
         return true;
     }
-    if (board[0] == check && board[4] == check && board[8] == check) {
+    if (tictacboard[0] == check && tictacboard[4] == check && tictacboard[8] == check) {
         return true;
     }
-    if (board[2] == check && board[4] == check && board[6] == check) {
+    if (tictacboard[2] == check && tictacboard[4] == check && tictacboard[6] == check) {
         return true;
     }
     return false;
   }
 
-  function checkForCat() {
-    let spots = openSpots();
+  //check if game is tied
+  function tictaccheckForCat() {
+    let spots = tictacopenSpots();
     if (spots.length <= 0) {
         return true;
     }
     return false;
 }
 
-app.post('/play/move/:LOCATION/:PIECE/:MODE', (req, res) => {
+//grab user location, gamemode, piece type from user and check if game is over
+app.post('/tictac/move/:LOCATION/:PIECE/:MODE', (req, res) => {
+    //user info from client
     const movelocation = req.params.LOCATION;
     const piece = req.params.PIECE;
     const mode = req.params.MODE;
@@ -243,39 +242,42 @@ app.post('/play/move/:LOCATION/:PIECE/:MODE', (req, res) => {
     console.log(piece)
     let winner = ''; // game over state
     let aimove = -1; // no AI move
-    if (done_yet == 0) {
-      board[movelocation] = 1;
+    //check if game is over
+    if (tictacdone_yet == 0) {
+      tictacboard[movelocation] = 1;
       sqXList.push(movelocation); // not sure if this is needed
-      if (checkForWinner(X_PIECE)) {
+      //check if X, O, or Tie Game wom
+      if (itctaccheckForWinner(X_PIECE)) {
         winner = 'X';
-        done_yet = 1;
-      } else if (checkForCat()) {
-        winner = 'C';
-        done_yet = 1;
+        tictacdone_yet = 1;
+      } else if (tictaccheckForCat()) {
+        winner = 'Tie Game';
+        tictacdone_yet = 1;
       } else {
-        let o = openSpots();
+        //use AI to randomly select a empty spot
+        let o = tictacopenSpots();
         let aipos = Math.floor(Math.random() * o.length);
         aimove = o[aipos];
-        board[aimove] = 2;
+        tictacboard[aimove] = 2;
         sqOList.push(aimove); // not sure if this is needed
-        if (checkForWinner(O_PIECE)) {
+        if (itctaccheckForWinner(O_PIECE)) {
           winner = 'O';
-          done_yet = 1;
-        } else if (checkForCat()) {
+          tictacdone_yet = 1;
+        } else if (tictaccheckForCat()) {
           winner = 'Tie Game';
-          done_yet = 1;
+          tictacdone_yet = 1;
         }
       }
     }
-    
-    let retval = {"aimove":aimove, "winner":winner, "board": board};
+    //send game status back to user
+    let retval = {"aimove":aimove, "winner":winner, "board": tictacboard};
     console.log(retval);
     res.send(JSON.stringify(retval));
 })
 
-
+//reset game
 app.post('/reset/tictac/', (req, res) => {
-    let reset = startOver();
+    let reset = tictacstartOver();
     res.send(JSON.stringify(reset));
 })
 
