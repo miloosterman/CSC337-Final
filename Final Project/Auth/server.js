@@ -36,7 +36,7 @@ const UserSchema = new Schema({
   scores: [mongoose.Schema.Types.ObjectId],
 });
 
-// Items
+// Score
 var ScoreSchema = new Schema(
   { Snake: Number,
       TicTacWin: Number,
@@ -76,18 +76,17 @@ function authenticate(req, res, next) {
   console.log('auth request:');
   console.log(req.cookies);
   if (c != undefined && c.login != undefined) {
-    if (
-      sessions[c.login.username] != undefined &&
-      sessions[c.login.username].id == c.login.sessionID
-    ) {
-      next();
-    } else {
-      res.redirect('/Homepage.html');
-    }
+      let username = c.login.username; //grab the username from the cookie
+      if ( sessions[username] != undefined && sessions[username].id == c.login.sessionID ) {
+          next();
+      } else {
+          res.redirect('/Homepage.html');
+      }
   } else {
-    res.redirect('/Homepage.html');
+      res.redirect('/Homepage.html');
   }
 }
+
 
 app.use(
   session({
