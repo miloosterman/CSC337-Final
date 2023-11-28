@@ -239,12 +239,12 @@ function itctaccheckForWinner(check) {
     return false;
 }
 //grab user location, gamemode, piece type from user and check if game is over
-app.post('/tictac/move/:LOCATION/:PIECE/:MODE/:PLAYER', (req, res) => {
+app.post('/tictac/move/:LOCATION/:PIECE/:GAMEMODE/:PLAYER', (req, res) => {
   //user info from client
   const movelocation = req.params.LOCATION;
   const piece = req.params.PIECE;
-  const mode = req.params.MODE;
-  const player = req.params.PLAYER;
+  const gamemode = req.params.GAMEMODE;
+  const tictacplayer = req.params.PLAYER;
   console.log(movelocation);
   console.log(piece)
   let winner = ''; // game over state
@@ -282,7 +282,7 @@ app.post('/tictac/move/:LOCATION/:PIECE/:MODE/:PLAYER', (req, res) => {
 
   if(tictacdone_yet == 1) {
     //check if user already exists
-    let p1 = User.findOne({username: player}).exec();
+    let p1 = User.findOne({username: tictacplayer}).exec();
     p1.then((user) => {
         //don't make score if user doesn't exist
         if (!user) {
@@ -322,6 +322,37 @@ app.post('/reset/tictac/', (req, res) => {
     let reset = tictacstartOver();
     res.send(JSON.stringify(reset));
 })
+
+/*
+Keala Goodell
+This Server-Side Code is used for Tic-Tac-Toe. 
+*/
+
+//update player score
+app.post('/snake/:PLAYER/:SNAKESCORE', (req, res) => {
+  const snakeplayer = req.params.PLAYER;
+  const snakescore = req.params.SNAKESCORE;
+    //check if user already exists
+    let p1 = User.findOne({username: snakeplayer}).exec();
+    p1.then((user) => {
+        //don't make score if user doesn't exist
+        if (!user) {
+            console.log('didnt find user');
+        } else {
+                updateScore = Score.findOneAndUpdate(
+                    {_id: user.scores[0]}, // assuming the first score is the one to update
+                    {$max: {Snake: snakescore}}
+                ).exec();
+            Promise.all([updateScore])
+            .then((score) => {
+                console.log('updated score');
+            })
+            .catch((error) => {
+                console.log('score not updated');
+            });
+        }
+    });
+  })
 
 app.listen(port, () => {
   console.log(`App listening at http://localhost:${port}`);
