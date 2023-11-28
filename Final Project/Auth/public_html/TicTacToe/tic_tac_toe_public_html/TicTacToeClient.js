@@ -70,7 +70,7 @@ window.onload = function() {
                 }
             })
             .catch( (error) => {
-                console.log('Item not added');
+                console.log('Score not added');
                 console.log(error);
             });
     }

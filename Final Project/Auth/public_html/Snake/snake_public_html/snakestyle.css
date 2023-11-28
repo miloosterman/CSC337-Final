@@ -1,3 +1,7 @@
+/*
+Keala Goodell
+This is the CSS for Snake
+*/
 .GameBoard{
     top:20%;
     left:0;
@@ -41,7 +45,7 @@ h2{
 
 #home{
     position: fixed;
-    top: 17%;
+    top: 14%;
     right:45%;
     left:45%;
 }
