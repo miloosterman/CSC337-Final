@@ -28,12 +28,14 @@ window.onload = function() {
         //get move location from user input
         player_e_id = movenames[move];
         console.log(piece, move, player_e_id);
+        console.log(localStorage.getItem("username"));
         //set player mode to plaver vs AI
         let gamemode = 'pve';
+        let player = localStorage.getItem('username');
         let playerElement = document.getElementById(player_e_id);
         //make url to send to server
-        let url = 'http://localhost:80/tictac/move/' + move +'/'+ piece + '/' + gamemode;
-        fetch(url, { method: 'POST', body: move, piece, gamemode })
+        let url = 'http://localhost:80/tictac/move/' + move +'/'+ piece + '/' + gamemode + '/' + player;
+        fetch(url, { method: 'POST', body: move, piece, gamemode, player })
             .then(response => response.json())
             .then(data => {
                 //get new board and winner from server reply
