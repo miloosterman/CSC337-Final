@@ -2,18 +2,19 @@
 #title{
     position: fixed;
     color: black;
-    margin-top: 30vh;
+    margin-top: 16vh;
     margin-left: 85vh;
     font-size: 30px;
+    font-family: 'Press Start 2p', serif;
 }
 
 #GameLogo {
     position: fixed;
     margin-top: -2vh;
     margin-left: -2vh;
-    padding-bottom: 78vh;
-    padding-top: 68px;
-    background-color: lightseagreen;
+    padding-bottom: 26vh;
+    padding-top: 5px;
+    background-color: blueviolet;
     padding-right: 77vh;
     padding-left: 80vh;
 }
@@ -24,7 +25,7 @@
     position: fixed;
     margin-top: 30vh;
     font-size: 30px;
-    margin-left: 141vh;
+    margin-left: 91vh;
     background-color: antiquewhite;
     border-style: solid;
     border-width: 3px;
@@ -100,6 +101,7 @@
     margin-left: 20vh;
     font-size: 20px;
     color: antiquewhite;
+    font-family: 'Nobile', Helvetica, Arial, sans-serif;
 }
 
 /* Styling the Tic-Tac-Toe game caption */
@@ -109,6 +111,7 @@
     font-size: 20px;
     margin-top: 12vh;
     color: antiquewhite;
+    font-family: 'Nobile', Helvetica, Arial, sans-serif;
 }
 
 /* Styling the Checkers game caption */
@@ -118,6 +121,7 @@
     font-size: 22px;
     margin-top: 7vh;
     color: antiquewhite;
+    font-family: 'Nobile', Helvetica, Arial, sans-serif;
 }
 
 #rankDesc{
@@ -127,7 +131,36 @@
 #scoreDesc{
     position: fixed;
     color: antiquewhite;
-    margin-left: 117vh;
-
+    margin-left: 65vh;
+    font-family: emoji;
+    font-size: 16px;
 }
 
+#background{
+    position: fixed;
+    background-color: darkviolet;
+    color: mediumpurple;
+    margin-left: -2vh;
+    z-index: 0;
+    width: 20vh;
+    height: 101vh;
+    margin-top: -2vh;
+}
+#background2{
+    position: fixed;
+    background-color: darkviolet;
+    color: white;
+    margin-left: 187vh;
+    z-index: 0;
+    width: 20vh;
+    height: 101vh;
+    margin-top: -2vh;
+}
+#titleBackground{
+    position: fixed;
+    
+    width: 188vh;
+    height: 101vh;
+    z-index: -1;
+    background-color: blueviolet;
+}
