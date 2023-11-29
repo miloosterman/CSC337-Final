@@ -175,9 +175,9 @@ app.get('/scores/:game', async (req, res) => {
     }
     let gameScores = {};
     users.forEach(user => {
-      console.log(game);
-      console.log(user.scores[0]);
-      gameScores[user.username] = user.scores[0][game];
+      if (user.scores && user.scores.length > 0 && user.scores[0][game] !== undefined) {
+        gameScores[user.username] = user.scores[0][game];
+      }
     });
     console.log(gameScores);
     // Sort gameScores in descending order
