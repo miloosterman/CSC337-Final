@@ -1,4 +1,12 @@
-///*
+/*
+Keala Goodell
+This Client-Side Code is used for Snake. 
+Upon loading, the game is reset.
+This code uses a series of functions to 
+run the game.
+*/
+
+//base game start. Set direction to right, clear board, set score to 0, put food in start position
 let gameBoard = null;
 let grid = [];
 let gridSize = 10; // Change this to increase/decrease the size of the grid
@@ -11,6 +19,7 @@ let gameover = true;
 let direction = "R";
 let score = 0;
 
+//begin game. set starting snake size, direction, score, update food and board 
 function initGameBoard()
 { 
     direction = "R";
@@ -27,6 +36,7 @@ function initGameBoard()
     drawBoard();
 }
 
+//draw snake parts
 function drawSnakePart(snakePart) 
 {  
     console.log("drawSnakePart");
@@ -36,6 +46,7 @@ function drawSnakePart(snakePart)
     snakeboard_ctx.strokeRect(snakePart.x, snakePart.y, gridSize, gridSize);
 }
 
+//draw food block
 function drawFood(foodPart) 
 {  
     snakeboard_ctx.fillStyle = 'red';  
@@ -44,6 +55,7 @@ function drawFood(foodPart)
     snakeboard_ctx.strokeRect(foodPart.x, foodPart.y, gridSize, gridSize);
 }
 
+//erase block(make it the same as gameboard)
 function eraseBlock(block)
 {
     snakeboard_ctx.fillStyle = 'black';  
@@ -52,6 +64,7 @@ function eraseBlock(block)
     snakeboard_ctx.strokeRect(block.x, block.y, gridSize, gridSize);
 }
 
+//create board
 function drawBoard()
 {
     for (x=0; x < 400; x += gridSize) {
@@ -61,6 +74,7 @@ function drawBoard()
     }
 }
 
+//use arrow keys to move snake
 document.onkeydown = SetDirection;
 
 function SetDirection(e) {
@@ -86,7 +100,7 @@ function SetDirection(e) {
 
 }
 
-
+//update food location then draw
 function updateFood()
 {
     eraseBlock(food);
@@ -100,9 +114,10 @@ function updateFood()
     drawFood(food);
 }
 
-
+//update board as playing
 function updateBoard()
 {
+    //check direction and set snake head
     let newhead = {x: snake[0].x, y: snake[0].y};
     if(direction == 'U'){
     newhead.y = newhead.y - gridSize;
@@ -116,10 +131,11 @@ function updateBoard()
     else if(direction == 'R'){
         newhead.x = newhead.x + gridSize
     }
-
+    //check if game over
     if(newhead.x > 390 || newhead.x < 0 || newhead.y > 390 || newhead.y < 0){
         gameover = true;
         alert('Game Over');
+        sendScore(score)
         var button = document.createElement("button");
         button.id = "Replay";
         button.innerHTML = "Replay";
@@ -128,12 +144,13 @@ function updateBoard()
         };
         document.body.appendChild(button)
     }
-
+    //check if game over
     for(i = 0; i < snake.length; i++){
         console.log(snake[i].x,snake[i].y);
         if(newhead.x == snake[i].x && newhead.y == snake[i].y){
             gameover = true;
             alert('Game Over');
+            sendScore(score)
             var button = document.createElement("button");
             button.id = "Replay";
             button.innerHTML = "Replay";
@@ -143,6 +160,7 @@ function updateBoard()
             document.body.appendChild(button)
         }
     }
+    //move snake and update
     if(newhead.x == food.x && newhead.y == food.y){
         score += 1;
         document.getElementById('points').innerHTML = "Score: " + score;
@@ -159,11 +177,13 @@ function updateBoard()
     drawFood(food);
 }
 
+//run game(make move faster as snake eats)
 function sleep(ms)
 {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+//run game
 async function startGame()
 {
     while (!gameover) {
@@ -174,6 +194,7 @@ async function startGame()
     }
 }
 
+//repkay game
 function Replay(){
     // Get the button element
     var button = document.getElementById("Replay");
@@ -186,10 +207,24 @@ function Replay(){
     startGame();
 }
 
+//draw the snake 
 function drawSnake() 
 {
     initGameBoard();
     startGame();
 }
 
-//*/
+//when game ends, send score to server
+function sendScore(score) {
+    console.log(localStorage.getItem("username"));
+    let player = localStorage.getItem('username');
+    let playerScore = score;
+    //make url to send to server
+    let url = 'http://localhost:80/snake/' + player +'/'+ playerScore;
+    fetch(url, { method: 'POST', body: player, playerScore})
+        .then(response => response.json())
+        .catch( (error) => {
+            console.log('Score not added');
+            console.log(error);
+        });
+}
