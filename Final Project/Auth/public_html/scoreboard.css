@@ -70,3 +70,11 @@
     border-color: black;
     border-width: 6px;
 }
+
+#home{
+    position: fixed;
+    top: 34%;
+    left:75%;
+    display: inline-block;
+    z-index: 2;
+}

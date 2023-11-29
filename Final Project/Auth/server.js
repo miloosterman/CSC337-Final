@@ -168,20 +168,28 @@ app.get('/scores/:game', async (req, res) => {
   try {
     const game = req.params.game;
     const users = await User.find().populate('scores');
-
-    const gameScores = users.map(user => ({
-      username: user.username,
-      Wins: user.scores[`${game}Win`],
-      Losses: user.scores[`${game}Loss`],
-      SnakeScore: user.scores.Snake,
-    }));
-
-    res.json(gameScores);
+    console.log(users);
+    // Check if users are returned
+    if (!users || users.length === 0) {
+      return res.status(404).send('No users found');
+    }
+    let gameScores = {};
+    users.forEach(user => {
+      console.log(game);
+      console.log(user.scores[0]);
+      gameScores[user.username] = user.scores[0][game];
+    });
+    console.log(gameScores);
+    // Sort gameScores in descending order
+    const sortedGameScores = Object.entries(gameScores).sort((a, b) => b[1] - a[1]);
+    // Check if scores are populated
+    res.send(sortedGameScores);
   } catch (error) {
     console.error(`Error fetching scores for ${req.params.game}:`, error);
     res.status(500).send('Internal server error');
   }
 });
+
 
 /*
 Keala Goodell
@@ -344,7 +352,7 @@ app.post('/reset/tictac/', (req, res) => {
 
 /*
 Keala Goodell
-This Server-Side Code is used for Tic-Tac-Toe. 
+This Server-Side Code is used for Snake. 
 */
 
 //update player score
