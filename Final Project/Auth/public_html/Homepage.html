@@ -9,32 +9,32 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-    <script src="Hompage.js" defer></script> 
+    <script src="Hompage.js" defer></script>
 </head>
 
 <body id="selection-body">
-    <img src="IMG/gamepage-logo.gif" alt="GamePage logo" id="GameLogo">
+    <img src="IMG/gamepage-logo.svg" alt="GamePage logo" id="GameLogo">
     <section id="rankings">
-        <button id="Scoreboard" >Scoreboard</button>
+        <h2 id="title">Choose Your Game!</h2>
+        <a id="help" href="./help.html">Need help?</a>
+        <p id="scoreDesc">This is the ScoreBoard of your local rivals that are playing these games</p>
+        <button id="Scoreboard">Scoreboard</button>
     </section>
-    <h2 id="title">Choose Your Game!</h2>
-    <a id="help" href="./help.html">Need help?</a>
     <section id="games-parent">
-        <ul id="game-list">
-            <p id="scoreDesc">This is the ScoreBoard of your local rivals that are playing these games</p>
-            <figure>
-                <li><a id="snakeGame" href="./Snake/snake_public_html/snake.html"><img src="IMG/snake.jpg" alt="snake image"></a></li>
-                <figcaption id="Snake">Snake</figcaption>
-            </figure>
-            <figure>
-                <li><a id="ticTacGame" href="./TicTacToe/tic_tac_toe_public_html/tictac.html"><img src="IMG/tictactoe.jpg" alt="tic-tac-toe image"></a></li>
-                <figcaption id="Tic">Tic-Tac-Toe</figcaption>
-            </figure>
-            <figure>
-                <li><a id="checkersGame" href="./checkers.html"><img src="IMG/checkers.jpg" alt="checkers image"></a></li>
-                <figcaption id ="check">Checkers</figcaption>
-            </figure>
-        </ul>
+        <figure id="snake">
+            <li><a id="snakeGame" href="./Snake/snake_public_html/snake.html"><img src="IMG/snake.jpg"
+                        alt="snake image"></a></li>
+            <figcaption id="Snake">Snake</figcaption>
+        </figure>
+        <figure id="tictactoe">
+            <li><a id="ticTacGame" href="./TicTacToe/tic_tac_toe_public_html/tictac.html"><img src="IMG/tictactoe.jpg"
+                        alt="tic-tac-toe image"></a></li>
+            <figcaption id="Tic">Tic-Tac-Toe</figcaption>
+        </figure>
+        <figure id="checkers">
+            <li><a id="checkersGame" href="./checkers.html"><img src="IMG/checkers.jpg" alt="checkers image"></a></li>
+            <figcaption id="check">Checkers</figcaption>
+        </figure>
     </section>
     <div id="background"></div>
     <div id="background2"></div>
