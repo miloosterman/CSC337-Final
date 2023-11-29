@@ -55,3 +55,18 @@
     margin-left: 55vh;
     font-size: 23px;
 }
+.container  p {
+
+    font-size: 23px;
+    position: fixed;
+    margin-top: 39vh;
+    margin-left: 30vh;
+    background-color: white;
+    padding-right: 123vh;
+    border: 1px solid #ccc;
+    padding-left: 22px;
+    padding-top: 24px;
+    padding-bottom: 47vh;
+    border-color: black;
+    border-width: 6px;
+}

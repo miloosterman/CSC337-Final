@@ -33,7 +33,7 @@ const UserSchema = new Schema({
   username: String,
   salt: String,  
   hash: String,  
-  scores: [mongoose.Schema.Types.ObjectId],
+  scores: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Score' }],
 });
 var User = mongoose.model('User', UserSchema);
 
@@ -162,6 +162,25 @@ app.post('/add/user', async (req, res) => {
 
   req.session.userId = newUser._id;
   res.status(201).send('User and score created and logged in');
+});
+
+app.get('/scores/:game', async (req, res) => {
+  try {
+    const game = req.params.game;
+    const users = await User.find().populate('scores');
+
+    const gameScores = users.map(user => ({
+      username: user.username,
+      Wins: user.scores[`${game}Win`],
+      Losses: user.scores[`${game}Loss`],
+      SnakeScore: user.scores.Snake,
+    }));
+
+    res.json(gameScores);
+  } catch (error) {
+    console.error(`Error fetching scores for ${req.params.game}:`, error);
+    res.status(500).send('Internal server error');
+  }
 });
 
 /*
