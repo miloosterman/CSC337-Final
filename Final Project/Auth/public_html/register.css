@@ -17,6 +17,11 @@ button:hover {
     border: 1px #7f7 solid;
 }
 
+#login-error-message, #register-error-message {
+    color: red;
+
+}
+
 body {
     background-image: url(IMG/arcade-screen.jpeg);
     background-size: cover;
