@@ -7,6 +7,16 @@ This is the CSS document thats acts as the design for the sign into the GamePage
     font-family: 'Press Start 2p', serif;
     color: #7f7;
 }
+
+button {
+    margin-top: 1em;
+    background-color: lightgrey;
+}
+
+button:hover {
+    border: 1px #7f7 solid;
+}
+
 body {
     background-image: url(IMG/arcade-screen.jpeg);
     background-size: cover;
@@ -20,14 +30,15 @@ h1 {
 }
 
 #GameLogo {
-    flex: 1;
+    width: 75%;
 }
 
-#parent-wrapper{
+#parent-wrapper {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 #intro {
@@ -44,48 +55,4 @@ h1 {
     flex-direction: column;
     text-align: center;
     align-items: center;
-}
-
-#login-username{
-}
-
-
-
-#login-password{
-}
-
-
-#login-error-message{
-}
-
-#login-button{
-}
-
-#createheader{
-}
-
-
-#register-username{
-}
-
-#register-password{
-
-}
-
-#loginheader{
-}
-
-#submit-button{
-}
-
-#register-error-message{
-
-}
-
-#logoImage{
-}
-
-#icon{
-}
-#requirements{
 }
