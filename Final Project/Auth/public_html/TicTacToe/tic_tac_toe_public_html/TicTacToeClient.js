@@ -5,6 +5,9 @@ Upon loading, the game is reset.
 This code uses a series of three functions to 
 run the game.
 */
+
+//set player mode to plaver vs AI
+let gamemode = 'pve';
 window.onload = function() {
 
     let gameEnded = false; //flag to track if the game has ended
@@ -29,13 +32,11 @@ window.onload = function() {
         player_e_id = movenames[move];
         console.log(piece, move, player_e_id);
         console.log(localStorage.getItem("username"));
-        //set player mode to plaver vs AI
-        let gamemode = 'pve';
         let player = localStorage.getItem('username');
         let playerElement = document.getElementById(player_e_id);
         //make url to send to server
-        let url = 'http://localhost:80/tictac/move/' + move +'/'+ piece + '/' + gamemode + '/' + player;
-        fetch(url, { method: 'POST', body: move, piece, gamemode, player })
+        let url = 'http://localhost:80/tictac/move/' + move + '/' + gamemode + '/' + player;
+        fetch(url, { method: 'POST', body: move, gamemode, player })
             .then(response => response.json())
             .then(data => {
                 //get new board and winner from server reply
@@ -101,4 +102,17 @@ window.onload = function() {
                 gameEnded = false;
             });
     }
+}
+
+function changeMode(){
+    var button = document.getElementById('friend');
+    if(gamemode == 'pve'){
+        gamemode = 'pvp';
+        //set server to call from function playvplay
+        button.innerHTML = 'Play Alone!';
+    } else if(gamemode == 'pvp'){
+        gamemode = 'pve';
+        button.innerHTML = 'Play with Strangers!';
+    }
+    console.log(gamemode)
 }

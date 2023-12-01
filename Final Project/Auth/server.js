@@ -195,159 +195,269 @@ app.get('/scores/:game', async (req, res) => {
 Keala Goodell
 This Server-Side Code is used for Tic-Tac-Toe. 
 */
-
-//set lists to empty, board to empty, and 
-//X and O numerical id
-let sqXList = [];
-let sqOList = [];
-let tictacboard = [0,0,0,0,0,0,0,0,0];
-let tictacdone_yet = 0;
 const X_PIECE = 1;
 const O_PIECE = 2;
+let tictacGames = [];
+let tictacUsers = {};
 
-//clear board, reset done_yet back to false
-function tictacstartOver() {
-    tictacboard = [];
-    tictacdone_yet = 0;
-    tictacresetting = -1;
-    tictacreset_counter = 0;
-    for (let i = 0; i < 9; i++) {
-        tictacboard.push(0);
+function makeNewBoard(player, gamemode){
+  // For PVP search for a game to be part of
+  let createnewgame = true;
+  if (gamemode == 'pvp') { 
+    for (let i = 0; i < tictacGames.length; i++) {
+      if (tictacGames[i]['player2'] == undefined) {
+        tictacGames[i]['player2'] = player;
+        tictacGames[i]['ready'] = 1
+        tictacUsers[player] = tictacGames[i]; // might work, may need to use an ID
+        createnewgame = false;
+        break;
+      }
     }
+  }
+
+  if (createnewgame) {
+    let tictacgame = {};
+    tictacgame['board'] = [0,0,0,0,0,0,0,0,0];
+    tictacgame['done'] = 0;
+    tictacgame['ready'] = 0;
+    tictacgame['winner'] = '';
+    tictacgame['player1'] = player;
+    tictacgame['player2'] = undefined;
+    tictacgame['created'] = Date.now();
+    tictacgame['gamemode'] = gamemode;
+    //make game use ai if playing solo
+    if (gamemode == 'pve'){ 
+      tictacgame['player2'] = 'aiplayer';
+      tictacgame['ready'] = 1;
+    }
+    tictacGames.push(tictacgame);
+    tictacUsers[player] = tictacgame;
+  }
+}
+
+//make a new board
+function tictacstartOver(player, gamemode) {
+  for (let i = 0; i < tictacGames.length; i++) {
+    if (tictacGames[i]['player1'] == player || tictacGames[i]['player2'] == player) {
+      if (tictacGames[i]['player1'] in tictacUsers) {
+        delete tictacUsers[tictacGames[i]['player1']];
+      }
+      if (tictacGames[i]['player2'] in tictacUsers) {
+        delete tictacUsers[tictacGames[i]['player2']];
+      }
+      tictacGames.splice(i,1);
+      break;
+    }
+  }
+  makeNewBoard(player, gamemode)
 }
 
 //check if board spot has been taken, if not then reset
-function tictacopenSpots() {
-    let spots = [];
-    for (let i = 0; i < 9; i++) {
-        if (tictacboard[i] == 0) {
-            spots.push(i);
-        }
-    }
-    console.log(spots.length);
-    return spots;
+function tictacopenSpots(tictacboard) {
+  let spots = [];
+  for (let i = 0; i < 9; i++) {
+      if (tictacboard[i] == 0) {
+          spots.push(i);
+      }
+  }
+  console.log(spots.length);
+  return spots;
+}
+
+function countPieces(tictacboard, piece) {
+  let counter = 0;
+  for (let i = 0; i < 9; i++) {
+      if (tictacboard[i] == piece) {
+          counter++;
+      }
+  }
+  return counter;
 }
 
 //check if game has been won
-function itctaccheckForWinner(check) {
-    if (tictacboard[0] == check && tictacboard[1] == check && tictacboard[2] == check) {
-        return true;
-    }
-    if (tictacboard[3] == check && tictacboard[4] == check && tictacboard[5] == check) {
-        return true;
-    }
-    if (tictacboard[6] == check && tictacboard[7] == check && tictacboard[8] == check) {
-        return true;
-    }
-    if (tictacboard[0] == check && tictacboard[3] == check && tictacboard[6] == check) {
-        return true;
-    }
-    if (tictacboard[1] == check && tictacboard[4] == check && tictacboard[7] == check) {
-        return true;
-    }
-    if (tictacboard[2] == check && tictacboard[5] == check && tictacboard[8] == check) {
-        return true;
-    }
-    if (tictacboard[0] == check && tictacboard[4] == check && tictacboard[8] == check) {
-        return true;
-    }
-    if (tictacboard[2] == check && tictacboard[4] == check && tictacboard[6] == check) {
-        return true;
-    }
-    return false;
+function tictaccheckForWinner(tictacboard, check) {
+  if (tictacboard[0] == check && tictacboard[1] == check && tictacboard[2] == check) {
+      return true;
   }
+  if (tictacboard[3] == check && tictacboard[4] == check && tictacboard[5] == check) {
+      return true;
+  }
+  if (tictacboard[6] == check && tictacboard[7] == check && tictacboard[8] == check) {
+      return true;
+  }
+  if (tictacboard[0] == check && tictacboard[3] == check && tictacboard[6] == check) {
+      return true;
+  }
+  if (tictacboard[1] == check && tictacboard[4] == check && tictacboard[7] == check) {
+      return true;
+  }
+  if (tictacboard[2] == check && tictacboard[5] == check && tictacboard[8] == check) {
+      return true;
+  }
+  if (tictacboard[0] == check && tictacboard[4] == check && tictacboard[8] == check) {
+      return true;
+  }
+  if (tictacboard[2] == check && tictacboard[4] == check && tictacboard[6] == check) {
+      return true;
+  }
+  return false;
+}
 
-  //check if game is tied
-  function tictaccheckForCat() {
-    let spots = tictacopenSpots();
+//check if game is tied
+function tictaccheckForCat(tictacboard) {
+    let spots = tictacopenSpots(tictacboard);
     if (spots.length <= 0) {
         return true;
     }
     return false;
 }
+
 //grab user location, gamemode, piece type from user and check if game is over
-app.post('/tictac/move/:LOCATION/:PIECE/:GAMEMODE/:PLAYER', (req, res) => {
+app.post('/tictac/move/:LOCATION/:GAMEMODE/:PLAYER', (req, res) => {
   //user info from client
   const movelocation = req.params.LOCATION;
-  const piece = req.params.PIECE;
   const gamemode = req.params.GAMEMODE;
   const tictacplayer = req.params.PLAYER;
-  console.log(movelocation);
-  console.log(piece)
+  if(tictacplayer in tictacUsers) {
+    console.log('extsting game');
+  } else {
+    console.log('newgame');
+    makeNewBoard(tictacplayer, gamemode);
+  }
+  let tictacgame = tictacUsers[tictacplayer];
+  
+  console.log(tictacgame);
+  console.log('movelocation', movelocation);
   let winner = ''; // game over state
   let aimove = -1; // no AI move
 
+  //check if X, O, or Tie Game won
+  let piece = O_PIECE;
+  let game_piece = 'O';
+  if (tictacplayer == tictacgame['player1']) {
+    piece = X_PIECE;
+    game_piece = 'X';
+  }
+  console.log(game_piece);
+
   //check if game is over
-  if (tictacdone_yet == 0) {
-    tictacboard[movelocation] = 1;
-    sqXList.push(movelocation); // not sure if this is needed
+  if (tictacgame['done'] == 0) {
+    if (tictacgame['board'][movelocation] != 0) {
+      return;
+    }
 
-    //check if X, O, or Tie Game wom
-    if (itctaccheckForWinner(X_PIECE)) {
-      winner = 'X';
-      tictacdone_yet = 1;
-    } else if (tictaccheckForCat()) {
-      winner = 'Tie Game';
-      tictacdone_yet = 1;
-    } else {
-      //use AI to randomly select a empty spot
-      let o = tictacopenSpots();
-      let aipos = Math.floor(Math.random() * o.length);
-      aimove = o[aipos];
-      tictacboard[aimove] = 2;
-      sqOList.push(aimove); // not sure if this is needed
-
-      if (itctaccheckForWinner(O_PIECE)) {
-        winner = 'O';
-        tictacdone_yet = 1;
-      } else if (tictaccheckForCat()) {
-        winner = 'Tie Game';
-        tictacdone_yet = 1;
+    if (gamemode == 'pvp') {
+      countx = countPieces(tictacgame['board'], X_PIECE);
+      counto = countPieces(tictacgame['board'], O_PIECE);
+      console.log('countx', countx);
+      console.log('counto', counto);
+      // X Move must have equal parts to move
+      if (piece == X_PIECE && countx != counto) {
+        return;
+      }
+      // O move must have 1 more X and O to move
+      if (piece == O_PIECE && countx != counto+1) {
+        return;
       }
     }
-  }
+    tictacgame['board'][movelocation] = piece;
 
-  if(tictacdone_yet == 1) {
-    //check if user already exists
-    let p1 = User.findOne({username: tictacplayer}).exec();
-    p1.then((user) => {
-        //don't make score if user doesn't exist
-        if (!user) {
-            console.log('didnt find user');
-        } else {
-            let updateScore;
-            if (winner == 'X') {
-                updateScore = Score.findOneAndUpdate(
-                    {_id: user.scores[0]}, // assuming the first score is the one to update
-                    {$inc: {TicTacWin: 1}}
-                ).exec();
-            } else if (winner == 'O') {
-                updateScore = Score.findOneAndUpdate(
-                    {_id: user.scores[0]}, // assuming the first score is the one to update
-                    {$inc: {TicTacLoss: 1}}
-                ).exec();
+    if (tictaccheckForWinner(tictacgame['board'], piece)) {
+      winner = game_piece;
+      tictacgame['done'] = 1;
+    } else if (tictaccheckForCat(tictacgame['board'])) {
+      winner = 'Tie Game';
+      tictacgame['done'] = 1;
+    } else if (gamemode == 'pve') {
+      //use AI to randomly select a empty spot
+      // AI is always 'O'
+      let o = tictacopenSpots(tictacgame['board']);
+      let aipos = Math.floor(Math.random() * o.length);
+      aimove = o[aipos];
+      tictacgame['board'][aimove] = 2;
+
+      if (tictaccheckForWinner(tictacgame['board'], O_PIECE)) {
+        winner = 'O';
+        tictacgame['done'] = 1;
+      } else if (tictaccheckForCat(tictacgame['board'])) {
+        winner = 'Tie Game';
+        tictacgame['done'] = 1;
+      }
+    } else {
+      //pve get other player move
+    }
+  }
+  tictacgame['winner'] = winner;
+
+  if (tictacgame['done'] == 1) {
+    if (gamemode == 'pve') {
+      //check if user already exists
+      let p1 = User.findOne({username: tictacplayer}).exec();
+      p1.then((user) => {
+          //don't make score if user doesn't exist
+          if (!user) {
+              console.log('didnt find user');
+          } else {
+              let updateScore;
+              if (winner == 'X') {
+                  updateScore = Score.findOneAndUpdate(
+                      {_id: user.scores[0]}, // assuming the first score is the one to update
+                      {$inc: {TicTacWin: 1}}
+                  ).exec();
+              } else if (winner == 'O') {
+                  updateScore = Score.findOneAndUpdate(
+                      {_id: user.scores[0]}, // assuming the first score is the one to update
+                      {$inc: {TicTacLoss: 1}}
+                  ).exec();
+              }
+              Promise.all([updateScore])
+              .then((score) => {
+                  console.log('updated score');
+              })
+              .catch((error) => {
+                  console.log('score not updated');
+              });
+          }
+      });
+    }
+    else if(gamemode == 'pvp') {
+      let p1 = User.findOne({username: tictacgame['player1']}).exec();
+      let p2 = User.findOne({username: tictacgame['player2']}).exec();
+      
+      Promise.all([p1, p2]).then((users) => {
+        let user1 = users[0];
+        let user2 = users[1];
+        
+        if (!user1 || !user2) { 
+            console.log('didnt find users'); 
+        } else { 
+            let updateScore1, updateScore2;
+            
+            if (winner == 'X') { 
+                updateScore1 = Score.findOneAndUpdate({_id: user1.scores[0]}, {$inc: {TicTacWin: 1}}).exec();
+                updateScore2 = Score.findOneAndUpdate({_id: user2.scores[0]}, {$inc: {TicTacLoss: 1}}).exec();
+            } else if (winner == 'O') { 
+                updateScore1 = Score.findOneAndUpdate({_id: user1.scores[0]}, {$inc: {TicTacLoss: 1}}).exec();
+                updateScore2 = Score.findOneAndUpdate({_id: user2.scores[0]}, {$inc: {TicTacWin: 1}}).exec();
             }
-            Promise.all([updateScore])
-            .then((score) => {
-                console.log('updated score');
-            })
-            .catch((error) => {
-                console.log('score not updated');
-            });
+            
+            Promise.all([updateScore1, updateScore2])
+                .then((score) => { console.log('updated scores'); })
+                .catch((error) => { console.log('scores not updated'); });
         }
-    });
+      });
+    }
+    tictacstartOver(tictacplayer, gamemode);
   }
 
   //send game status back to user
-  let retval = {"aimove":aimove, "winner":winner, "board": tictacboard};
+  let retval = {"aimove":aimove, "winner":winner, "board": tictacgame['board']};
   res.send(JSON.stringify(retval));
 })
 
-
 //reset game
 app.post('/reset/tictac/', (req, res) => {
-    let reset = tictacstartOver();
-    res.send(JSON.stringify(reset));
+    res.send(JSON.stringify('1'));
 })
 
 /*
