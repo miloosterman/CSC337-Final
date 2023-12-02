@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
 document.querySelectorAll('.game-link').forEach(item => {
     item.addEventListener('click', async event => {
       let gameName = event.target.getAttribute('data-game-name');
+      console.log("click");
       try {
         const response = await fetch('/game-click', {
           method: 'POST',

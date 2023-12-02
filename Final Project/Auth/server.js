@@ -38,16 +38,17 @@ const UserSchema = new Schema({
 var User = mongoose.model('User', UserSchema);
 
 
-GameClickSchema = new Schema({
+const GameClickSchema = new Schema({
   user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   gameName: String,
   clicks: { type: Number, default: 0 }
 });
-const GameClick = mongoose.model('GameClick', GameClickSchema);
+var GameClick = mongoose.model('GameClick', GameClickSchema);
 
 app.post('/game-click', async (req, res) => {
   let gameName = req.body.gameName;
   let userId = req.session.userId; // Assuming userId is stored in session
+  console.log('game', gameName, 'user', userId);
 
   // Logic to update the game click count
   const clickRecord = await GameClick.findOne({ user: userId, gameName: gameName });
@@ -65,6 +66,7 @@ app.post('/game-click', async (req, res) => {
   res.status(200).json({ message: 'Game click recorded', favoriteGame: favoriteGame });
 });
 async function calculateFavoriteGame(userId) {
+  console.log('calculateFavoriteGame');
   try {
     // Find the most-clicked game for the given user
     const mostClickedGame = await GameClick.findOne({ user: userId }).sort({ clicks: -1 });

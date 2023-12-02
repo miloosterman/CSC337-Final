@@ -39,7 +39,6 @@ function initGameBoard()
 //draw snake parts
 function drawSnakePart(snakePart) 
 {  
-    console.log("drawSnakePart");
     snakeboard_ctx.fillStyle = 'darkgreen';  
     snakeboard_ctx.strokestyle = 'chartreuse';
     snakeboard_ctx.fillRect(snakePart.x, snakePart.y, gridSize, gridSize);  
@@ -146,7 +145,6 @@ function updateBoard()
     }
     //check if game over
     for(i = 0; i < snake.length; i++){
-        console.log(snake[i].x,snake[i].y);
         if(newhead.x == snake[i].x && newhead.y == snake[i].y){
             gameover = true;
             alert('Game Over');
@@ -187,10 +185,8 @@ function sleep(ms)
 async function startGame()
 {
     while (!gameover) {
-        console.log("1"); 
         updateBoard();
         await sleep(wait_ms);
-        console.log("2"); 
     }
 }
 
