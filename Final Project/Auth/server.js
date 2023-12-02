@@ -463,15 +463,13 @@ app.post('/reset/tictac/', (req, res) => {
 //update board
 app.get('/tictac/board/:gamemode/:player', (req, res) => {
   let player = req.params.player;
-
   //find game
-  let game = tictacGames[player];
-
+  let game = tictacUsers[player];
   if (game) {
-      // If the game session exists, return the current state of the game board
+      // If the game exists, return the current state of the game board
       res.json({ board: game.board });
   } else {
-      // If the game session does not exist, return an error
+      // If the game does not exist, return an error
       res.status(404).json({ error: 'Game not found' });
   }
 });

@@ -8,12 +8,11 @@ run the game.
 
 //set player mode to plaver vs AI
 let gamemode = 'pve';
+//moves are named using the html divs
+const movenames = ["upleft", "upmid", "upright", "midleft", "midmid", "midright", "downleft", "downmid", "downright"];
+let gameEnded = false; //flag to track if the game has ended
+
 window.onload = function() {
-
-    let gameEnded = false; //flag to track if the game has ended
-
-    //moves are named using the html divs
-    const movenames = ["upleft", "upmid", "upright", "midleft", "midmid", "midright", "downleft", "downmid", "downright"];
 
     //reset the game
     ReplayTicTac();
@@ -103,43 +102,50 @@ window.onload = function() {
             });
     }
 
-    function getBoard() {
-        let player = localStorage.getItem('username');
-        fetch('http://localhost:80/tictac/board/' + gamemode + '/' + player)
-            .then(response => response.json())
-            .then(data => {
-                console.log(data)
-                // Update the board based on the server's response
-                let board = data.board;
-                for (let i = 0; i < board.length; i++) {
-                    let playerpiece = '';
-                    if (board[i] == 1) {
-                        playerpiece = 'X';
-                    } else if (board[i] == 2) {
-                        playerpiece = 'O';
-                    } else {
-                        continue;
-                    }
-                    let e_id = movenames[i];
-                    let element = document.getElementById(e_id);
-                    element.innerHTML = playerpiece;
-                }
-            })
-            .catch(error => {
-                console.log('Error:', error);
-            });
-    
-        setTimeout(getBoard, 1000);
-    }
+  
 }
 
+//update board on both players sides. (note player2 has to make a move before the board updates for them)
+function getBoard() {
+    //grab player to find gameboard server side.
+    let player = localStorage.getItem('username');
+    fetch('http://localhost:80/tictac/board/' + gamemode + '/' + player)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+            // Update the board based on the server's response
+            let board = data.board;
+            for (let i = 0; i < board.length; i++) {
+                let playerpiece = '';
+                if (board[i] == 1) {
+                    playerpiece = 'X';
+                } else if (board[i] == 2) {
+                    playerpiece = 'O';
+                } else {
+                    continue;
+                }
+                let e_id = movenames[i];
+                let element = document.getElementById(e_id);
+                element.innerHTML = playerpiece;
+            }
+        })
+        .catch(error => {
+            console.log('Error:', error);
+        });
+    //call getBoard every second
+    setTimeout(getBoard, 1000);
+}
+
+//change mode between pvp and pve
 function changeMode(){
     getBoard();
     var button = document.getElementById('friend');
+    //change to player vs player
     if(gamemode == 'pve'){
         gamemode = 'pvp';
         //set server to call from function playvplay
         button.innerHTML = 'Play Alone!';
+        //change to player vs ai
     } else if(gamemode == 'pvp'){
         gamemode = 'pve';
         button.innerHTML = 'Play with Strangers!';
