@@ -102,9 +102,39 @@ window.onload = function() {
                 gameEnded = false;
             });
     }
+
+    function getBoard() {
+        let player = localStorage.getItem('username');
+        fetch('http://localhost:80/tictac/board/' + gamemode + '/' + player)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+                // Update the board based on the server's response
+                let board = data.board;
+                for (let i = 0; i < board.length; i++) {
+                    let playerpiece = '';
+                    if (board[i] == 1) {
+                        playerpiece = 'X';
+                    } else if (board[i] == 2) {
+                        playerpiece = 'O';
+                    } else {
+                        continue;
+                    }
+                    let e_id = movenames[i];
+                    let element = document.getElementById(e_id);
+                    element.innerHTML = playerpiece;
+                }
+            })
+            .catch(error => {
+                console.log('Error:', error);
+            });
+    
+        setTimeout(getBoard, 1000);
+    }
 }
 
 function changeMode(){
+    getBoard();
     var button = document.getElementById('friend');
     if(gamemode == 'pve'){
         gamemode = 'pvp';

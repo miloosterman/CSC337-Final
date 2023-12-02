@@ -460,6 +460,23 @@ app.post('/reset/tictac/', (req, res) => {
     res.send(JSON.stringify('1'));
 })
 
+//update board
+app.get('/tictac/board/:gamemode/:player', (req, res) => {
+  let player = req.params.player;
+
+  //find game
+  let game = tictacGames[player];
+
+  if (game) {
+      // If the game session exists, return the current state of the game board
+      res.json({ board: game.board });
+  } else {
+      // If the game session does not exist, return an error
+      res.status(404).json({ error: 'Game not found' });
+  }
+});
+
+
 /*
 Keala Goodell
 This Server-Side Code is used for Snake. 
