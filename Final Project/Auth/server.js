@@ -38,6 +38,63 @@ const UserSchema = new Schema({
 var User = mongoose.model('User', UserSchema);
 
 
+GameClickSchema = new Schema({
+  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  gameName: String,
+  clicks: { type: Number, default: 0 }
+});
+const GameClick = mongoose.model('GameClick', GameClickSchema);
+
+app.post('/game-click', async (req, res) => {
+  let gameName = req.body.gameName;
+  let userId = req.session.userId; // Assuming userId is stored in session
+
+  // Logic to update the game click count
+  const clickRecord = await GameClick.findOne({ user: userId, gameName: gameName });
+  if (clickRecord) {
+    clickRecord.clicks += 1;
+    await clickRecord.save();
+  } else {
+    await new GameClick({ user: userId, gameName: gameName, clicks: 1 }).save();
+  }
+
+  // After updating the click count, calculate the favorite game
+  const favoriteGame = await calculateFavoriteGame(userId);
+
+  // Sending the favorite game as part of the response (optional)
+  res.status(200).json({ message: 'Game click recorded', favoriteGame: favoriteGame });
+});
+async function calculateFavoriteGame(userId) {
+  try {
+    // Find the most-clicked game for the given user
+    const mostClickedGame = await GameClick.findOne({ user: userId }).sort({ clicks: -1 });
+
+    if (!mostClickedGame) {
+      return null;
+    }
+
+    const favoriteGameName = mostClickedGame.gameName;
+
+    // Aggregate the total clicks for the favorite game across all users
+    const gameClickCount = await GameClick.aggregate([
+      { $match: { gameName: favoriteGameName } },
+      { $group: { _id: null, totalCount: { $sum: "$clicks" } } },
+    ]);
+
+    if (gameClickCount.length === 0) {
+      return null;
+    }
+
+    const totalClicks = gameClickCount[0].totalCount;
+    console.log(totalClicks, "hello");
+    return { gameName: favoriteGameName, totalClicks };
+   
+  } catch (error) {
+    console.error('Error calculating favorite game:', error);
+    return null;
+  }
+}
+
 // Score
 var ScoreSchema = new Schema(
   { Snake: Number,
@@ -380,7 +437,9 @@ app.post('/snake/:PLAYER/:SNAKESCORE', (req, res) => {
         }
     });
   })
+  app.listen(port, () => {
+    console.log(`App listening at http://localhost:${port}`);
+  });
+  
 
-app.listen(port, () => {
-  console.log(`App listening at http://localhost:${port}`);
-});
+  
