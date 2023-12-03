@@ -318,6 +318,7 @@ app.post('/tictac/move/:LOCATION/:GAMEMODE/:PLAYER', (req, res) => {
   const movelocation = req.params.LOCATION;
   const gamemode = req.params.GAMEMODE;
   const tictacplayer = req.params.PLAYER;
+
   if(tictacplayer in tictacUsers) {
     console.log('extsting game');
   } else {
@@ -326,6 +327,21 @@ app.post('/tictac/move/:LOCATION/:GAMEMODE/:PLAYER', (req, res) => {
   }
   let tictacgame = tictacUsers[tictacplayer];
   
+  if (tictacgame['done'] == 1) {
+    console.log('game done, starting over');
+    tictacstartOver(tictacplayer, gamemode);
+    tictacgame = tictacUsers[tictacplayer];
+  }
+
+  if (gamemode != tictacgame['gamemode']) {
+    console.log('game mode mismatch, starting over');
+    tictacstartOver(tictacplayer, gamemode);
+    tictacgame = tictacUsers[tictacplayer];
+  }
+  
+  if(movelocation >= 9){
+    return;
+  }
   console.log(tictacgame);
   console.log('movelocation', movelocation);
   let winner = ''; // game over state
@@ -338,7 +354,6 @@ app.post('/tictac/move/:LOCATION/:GAMEMODE/:PLAYER', (req, res) => {
     piece = X_PIECE;
     game_piece = 'X';
   }
-  console.log(game_piece);
 
   //check if game is over
   if (tictacgame['done'] == 0) {
@@ -365,9 +380,11 @@ app.post('/tictac/move/:LOCATION/:GAMEMODE/:PLAYER', (req, res) => {
     if (tictaccheckForWinner(tictacgame['board'], piece)) {
       winner = game_piece;
       tictacgame['done'] = 1;
+      tictacgame['winner'] = winner;
     } else if (tictaccheckForCat(tictacgame['board'])) {
       winner = 'Tie Game';
       tictacgame['done'] = 1;
+      tictacgame['winner'] = winner;
     } else if (gamemode == 'pve') {
       //use AI to randomly select a empty spot
       // AI is always 'O'
@@ -379,15 +396,16 @@ app.post('/tictac/move/:LOCATION/:GAMEMODE/:PLAYER', (req, res) => {
       if (tictaccheckForWinner(tictacgame['board'], O_PIECE)) {
         winner = 'O';
         tictacgame['done'] = 1;
+        tictacgame['winner'] = winner;
       } else if (tictaccheckForCat(tictacgame['board'])) {
         winner = 'Tie Game';
         tictacgame['done'] = 1;
+        tictacgame['winner'] = winner;
       }
-    } else {
-      //pve get other player move
     }
   }
-  tictacgame['winner'] = winner;
+
+  console.log(tictacplayer, winner);
 
   if (tictacgame['done'] == 1) {
     if (gamemode == 'pve') {
@@ -447,7 +465,6 @@ app.post('/tictac/move/:LOCATION/:GAMEMODE/:PLAYER', (req, res) => {
         }
       });
     }
-    tictacstartOver(tictacplayer, gamemode);
   }
 
   //send game status back to user
@@ -456,8 +473,12 @@ app.post('/tictac/move/:LOCATION/:GAMEMODE/:PLAYER', (req, res) => {
 })
 
 //reset game
-app.post('/reset/tictac/', (req, res) => {
-    res.send(JSON.stringify('1'));
+app.post('/reset/tictac/:player', (req, res) => {
+  console.log(req.params);
+  let player = req.params.player;
+  console.log('reset', player);
+  tictacstartOver(player, 'pve');
+  res.send(JSON.stringify('1'));
 })
 
 //update board
@@ -466,8 +487,16 @@ app.get('/tictac/board/:gamemode/:player', (req, res) => {
   //find game
   let game = tictacUsers[player];
   if (game) {
+    let winner = '';
+    if (game.winner =='X'){
+      winner = game.player1;
+    } else if(game.winner == 'O'){
+      winner = game.player2;
+    } else if (game.winner != '' ) {
+      winner = game.winner;
+    }
       // If the game exists, return the current state of the game board
-      res.json({ board: game.board });
+      res.json({ board: game.board, winner : winner });
   } else {
       // If the game does not exist, return an error
       res.status(404).json({ error: 'Game not found' });
