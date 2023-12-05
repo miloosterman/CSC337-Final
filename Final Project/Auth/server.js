@@ -20,6 +20,19 @@ app.set("json spaces", 2);
 const mongoDBURL = 'mongodb://127.0.0.1:27017/final';
 
 
+app.use(
+  session({
+    secret: 'mySecret',
+    resave: false,
+    saveUninitialized: true,
+    store: MongoStore.create({ mongoUrl: mongoDBURL }),
+    cookie: {
+      secure: false,
+      httpOnly: true,
+    },
+  })
+);
+
 mongoose.connect(mongoDBURL, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
 
@@ -51,7 +64,9 @@ app.post('/game-click', async (req, res) => {
 
   // Logic to update the game click count
   const clickRecord = await GameClick.findOne({ user: userId, gameName: gameName });
+ 
   if (clickRecord) {
+   
     clickRecord.clicks += 1;
     await clickRecord.save();
   } else {
@@ -60,6 +75,8 @@ app.post('/game-click', async (req, res) => {
 
   // After updating the click count, calculate the favorite game
   const favoriteGame = await calculateFavoriteGame(userId);
+ 
+
 
   // Sending the favorite game as part of the response (optional)
   res.status(200).json({ message: 'Game click recorded', favoriteGame: favoriteGame });
@@ -68,6 +85,7 @@ async function calculateFavoriteGame(userId) {
   try {
     // Find the most-clicked game for the given user
     const mostClickedGame = await GameClick.findOne({ user: userId }).sort({ clicks: -1 });
+  
 
     if (!mostClickedGame) {
       return null;
@@ -86,7 +104,6 @@ async function calculateFavoriteGame(userId) {
     }
 
     const totalClicks = gameClickCount[0].totalCount;
-    console.log(totalClicks, "hello");
     return { gameName: favoriteGameName, totalClicks };
    
   } catch (error) {
@@ -94,6 +111,10 @@ async function calculateFavoriteGame(userId) {
     return null;
   }
 }
+app.get('/most-clicked-game', async (req, res) => {
+
+res.json( await calculateFavoriteGame(req.session.userId));
+});
 
 // Score
 var ScoreSchema = new Schema(
@@ -148,18 +169,7 @@ function authenticate(req, res, next) {
 }
 
 
-app.use(
-  session({
-    secret: 'mySecret',
-    resave: false,
-    saveUninitialized: true,
-    store: MongoStore.create({ mongoUrl: mongoDBURL }),
-    cookie: {
-      secure: false,
-      httpOnly: true,
-    },
-  })
-);
+
 
 // Login endpoint
 app.post('/login', async (req, res) => {
@@ -168,6 +178,7 @@ try {
   const user = await User.findOne({ username: username });
 
   if (user) {
+    console.log(user);
     console.log('Password:', password);
     console.log('User Salt:', user.salt);
     console.log('User Hash:', user.hash);

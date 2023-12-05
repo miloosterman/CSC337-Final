@@ -18,7 +18,8 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 document.querySelectorAll('.game-link').forEach(item => {
     item.addEventListener('click', async event => {
-      let gameName = event.target.getAttribute('data-game-name');
+     
+      let gameName = event.target.getAttribute("id");
       try {
         const response = await fetch('/game-click', {
           method: 'POST',
@@ -37,14 +38,48 @@ document.querySelectorAll('.game-link').forEach(item => {
             console.log(`Favorite game: ${data.favoriteGame.gameName}, Total Clicks: ${data.favoriteGame.totalClicks}`);
           }
 
-        } else {
-          console.error('Server response not okay:', response.statusText);
+          try {
+            const mostClickedResponse = await fetch('/most-clicked-game');
+            if (mostClickedResponse.ok) {
+                const mostClickedData = await mostClickedResponse.json();
+                console.log(`Most clicked game: ${mostClickedData.gameName}, Total Clicks: ${mostClickedData.totalClicks}`);
+            } else {
+                console.error('Most clicked game request failed:', mostClickedResponse.statusText);
+            }
+        } catch (error) {
+            console.error('Error during most clicked game fetch:', error);
         }
-      } catch (error) {
-        console.error('Error during fetch:', error);
-      }
-    });
-  });
 
+    } else {
+        console.error('Server response not okay:', response.statusText);
+    }
+} catch (error) {
+    console.error('Error during fetch:', error);
+}
+});
+});
+  document.addEventListener('DOMContentLoaded', async () => {
+    const favoriteGameJSON = localStorage.getItem('favoriteGame');
+    if (favoriteGameJSON) {
+        const favoriteGame = JSON.parse(favoriteGameJSON);
+        console.log(`Favorite game: ${favoriteGame.gameName}, Total Clicks: ${favoriteGame.totalClicks}`);
+    } else {
+        console.log('No favorite game found.');
+    }
+    try {
+        const mostClickedResponse = await fetch('/most-clicked-game');
+        if (mostClickedResponse.ok) {
+            const mostClickedData = await mostClickedResponse.json();
+            console.log(`Most clicked game: ${mostClickedData.gameName}, Total Clicks: ${mostClickedData.totalClicks}`);
+            const mostClickedGameDiv = document.getElementById('mostClickedGame');
+            const mostClickedGameInfo = document.getElementById('mostClickedGameInfo');
+            mostClickedGameInfo.textContent = `Game: ${mostClickedData.gameName}, Clicks: ${mostClickedData.totalClicks}`;
+        } else {
+            console.error('Most clicked game request failed:', mostClickedResponse.statusText);
+        }
+    } catch (error) {
+        console.error('Error during most clicked game fetch:', error);
+    }
+});
 
     

@@ -164,3 +164,14 @@
     z-index: -1;
     background-color: blueviolet;
 }
+#mostClickedGameInfo{
+    position: fixed;
+    margin-top: 30vh;
+    margin-left: 28vh;
+}
+
+#MostClicked{
+    position: fixed;
+    margin-left: 30vh;
+    margin-top: 24vh;
+}
