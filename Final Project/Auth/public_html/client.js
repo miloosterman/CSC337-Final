@@ -1,3 +1,16 @@
+/*
+Group Members:
+Milo Osterman
+Keala Goodell
+Joshua Andrews
+Ayden DaCosta
+
+Course: CSC337
+
+File: client.js
+
+Purpose: Score handling JS file
+*/
 function fetchScores() {
   const scoresDisplay = document.getElementById('scores-display');
   const gameNamesSelect = document.getElementById('Game-names').value;

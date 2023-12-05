@@ -1,9 +1,15 @@
 /*
+Group Members:
+Milo Osterman
 Keala Goodell
-This Client-Side Code is used for Tic-Tac-Toe. 
-Upon loading, the game is reset.
-This code uses a series of three functions to 
-run the game.
+Joshua Andrews
+Ayden DaCosta
+
+Course: CSC337
+
+File: TicTacToeClient.css
+
+Purpose: JS for tic-tac-toe
 */
 
 //set player mode to plaver vs AI
