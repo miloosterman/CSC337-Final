@@ -2,67 +2,21 @@
 Keala Goodell
 This is the CSS for Snake
 */
-.GameBoard{
-    top:20%;
-    left:0;
-    position: fixed;
-    color: antiquewhite;
-    background-color: black;
-    height: 80%;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+#snake-logo {
+    width: 50%;
+    height: auto;
+
 }
 
-#points {
-    position: absolute;
-    top: 25%;
-    right: 25%;
-    font-size: 24px;
-    color: white;
-}
-
-html{
-    background-color:mediumpurple;
-    color: black;
+body {
+    background-image: url(../../IMG/snake-back.jpeg);
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
     text-align: center;
 }
 
-h1{
-    width: 100%;
+.gameboard {
     position: fixed;
-    top: -10%;
-    font-size: 100px;
-}
-
-h2{
-    width: 100%;
-    position: fixed;
-    top: 7%;
-    font-size: 40px;
-}
-
-#home{
-    position: fixed;
-    top: 14%;
-    right:45%;
-    left:45%;
-}
-
-#snakehome{
-    background-color: darkblue;
-    margin: 0;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-right: -50%;
-    transform: translate(-50%, -50%)
-}
-
-#Replay {
-    position: absolute;
-    bottom: 20%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    right: 40%;
 }

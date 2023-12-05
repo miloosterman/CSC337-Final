@@ -1,24 +1,24 @@
 <!--Keala Goodell
 This is the HTML for Snake-->
 <!DOCTYPE html>
-<html lang = "en">
-    <head>
-        <!--use style and script-->
-        <meta charset="utf-8">
-        <link rel="stylesheet" 
-        type="text/css"
-        id="main"
-        href="snakestyle.css">
-        <script src = "snakeclient.js"></script>
-        <title>Snake</title>
-    </head>
-    <!--call and start game on load-->
-    <body onload="drawSnake()">
-        <h1>Snake</h1>
+<html lang="en">
+
+<head>
+    <!--use style and script-->
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" id="main" href="snakestyle.css">
+    <script src="snakeclient.js"></script>
+    <title>Snake</title>
+</head>
+<!--call and start game on load-->
+
+<body onload="drawSnake()">
+    <img id="snake-logo" src="../../IMG/snake-title.png" alt="Snake logo">
+    <div class="gameboard">
         <button id="home" onclick="location.href = '../../Homepage.html'">Back To Main</button>
-        <div class="gameboard">
-            <div id="points">Score: 0</div>
-            <canvas id="snakehome" width="400" height="400" style="border:1px solid #ffffff;"></canvas>
-        </div>
-    </body>
+        <div id="points">Score: 0</div>
+        <canvas id="snakehome" width="400" height="400" style="border:1px solid #ffffff;"></canvas>
+    </div>
+</body>
+
 </html>
