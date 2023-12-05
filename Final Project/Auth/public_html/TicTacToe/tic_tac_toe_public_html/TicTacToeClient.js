@@ -7,7 +7,7 @@ run the game.
 */
 
 //set player mode to plaver vs AI
-let gamemode = 'pvp';
+let gamemode = 'pve';
 let gamerunning = false;
 //moves are named using the html divs
 const movenames = ["upleft", "upmid", "upright", "midleft", "midmid", "midright", "downleft", "downmid", "downright"];
