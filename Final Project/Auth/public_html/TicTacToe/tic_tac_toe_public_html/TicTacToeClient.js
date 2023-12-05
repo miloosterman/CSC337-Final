@@ -14,11 +14,7 @@ const movenames = ["upleft", "upmid", "upright", "midleft", "midmid", "midright"
 let gameEnded = false; //flag to track if the game has ended
 
 window.onload = function() {
-    if (localStorage.getItem("hasCodeRunBefore")) {
-        changeMode();
-        return;
-    }
-    localStorage.setItem("hasCodeRunBefore", true);
+
     //reset the game
     ReplayTicTac();
     //listen for user input in the form of clicking on an element
@@ -184,6 +180,14 @@ function changeMode(){
         //change to player vs ai
     } else if(gamemode == 'pvp'){
         gamemode = 'pve';
+        //set server to call from function playvplay
+        //begin update board on both client sides
+        button.innerHTML = 'Play Alone!';
+        let player = localStorage.getItem('username');
+        let url = 'http://localhost:80/tictac/move/' + 100 + '/' + gamemode + '/' + player;
+        fetch(url, { method: 'POST', body: 100, gamemode, player })
+            .then(response => response.json())
+            .then(data => {});
         button.innerHTML = 'Play with Strangers!';
     }
     console.log(gamemode)
