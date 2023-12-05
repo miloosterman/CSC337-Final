@@ -7,14 +7,18 @@ run the game.
 */
 
 //set player mode to plaver vs AI
-let gamemode = 'pve';
+let gamemode = 'pvp';
 let gamerunning = false;
 //moves are named using the html divs
 const movenames = ["upleft", "upmid", "upright", "midleft", "midmid", "midright", "downleft", "downmid", "downright"];
 let gameEnded = false; //flag to track if the game has ended
 
 window.onload = function() {
-
+    if (localStorage.getItem("hasCodeRunBefore")) {
+        changeMode();
+        return;
+    }
+    localStorage.setItem("hasCodeRunBefore", true);
     //reset the game
     ReplayTicTac();
     //listen for user input in the form of clicking on an element
@@ -40,6 +44,7 @@ window.onload = function() {
             .then(response => response.json())
             .then(data => {
                 /*
+                if(gamemode == 'pve'){
                 //get new board and winner from server reply
                 let winner = data.winner;
                 let board = data.board;
@@ -70,47 +75,15 @@ window.onload = function() {
                     document.body.appendChild(button);
                     gameEnded = true; // Set the flag to true when the game ends
                 }
-                */
+    
+            }
+                */            
             })
             .catch( (error) => {
                 console.log('Score not added');
                 console.log(error);
             });
     }
-
-    /*
-    //send replay request to server to clear the board and winner
-    function ReplayTicTac() {
-        let player = localStorage.getItem('username');
-        let url = 'http://localhost:80/reset/tictac/' + player;
-        fetch(url, { method: 'POST', body: player })
-            .then(data => {
-                // Get the button element
-                var button = document.getElementById("Replay");
-                
-                // Remove the button from the document
-                if (button) {
-                    button.parentNode.removeChild(button);
-                }
-                //set board to empty
-                document.getElementById('upleft').innerHTML = '';
-                document.getElementById('upmid').innerHTML = '';
-                document.getElementById('upright').innerHTML = '';
-                document.getElementById('midleft').innerHTML = '';
-                document.getElementById('midmid').innerHTML = '';
-                document.getElementById('midright').innerHTML = '';
-                document.getElementById('downleft').innerHTML = '';
-                document.getElementById('downmid').innerHTML = '';
-                document.getElementById('downright').innerHTML = '';
-                if(gamemode == 'pvp'){
-                    changeMode();
-                }
-                //set to false to replay game.
-                gameEnded = false;
-            });
-    }
-    */
-
   
 }
 
