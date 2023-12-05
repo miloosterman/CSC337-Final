@@ -12,11 +12,27 @@ body {
     background-image: url(../../IMG/snake-back.jpeg);
     background-size: cover;
     background-position: center center;
-    background-attachment: fixed;
+    background-attachment: absolute;
     text-align: center;
+    overflow: hidden
 }
 
-.gameboard {
-    position: fixed;
-    right: 40%;
+.GameBoard{
+    top:20%;
+    left:0;
+    position: absolute;
+    color: antiquewhite;
+    background-color: black;
+    height: 80%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#Replay {
+    position: absolute;
+    bottom: 10%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
