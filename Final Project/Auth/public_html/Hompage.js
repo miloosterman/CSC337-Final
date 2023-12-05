@@ -1,6 +1,16 @@
-// this is the client side of the main homepages
-// Ayden DaCosta
+/*
+Group Members:
+Milo Osterman
+Keala Goodell
+Joshua Andrews
+Ayden DaCosta
 
+Course: CSC337
+
+File: Hompage.js
+
+Purpose: Client side handling for home page
+*/
 
 document.addEventListener('DOMContentLoaded', function() {
     const scoreboardButton = document.getElementById('Scoreboard');

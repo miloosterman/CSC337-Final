@@ -1,3 +1,16 @@
+/*
+Group Members:
+Milo Osterman
+Keala Goodell
+Joshua Andrews
+Ayden DaCosta
+
+Course: CSC337
+
+File: scoreboard.css
+
+Purpose: CSS for scoreboard
+*/
 #Scores{
     position: fixed;
     margin-left: -1vh;
@@ -33,12 +46,10 @@
 }
 #GameLogo {
     position: fixed;
-    margin-top: -2vh;
-    margin-left: -2vh;
-    padding-bottom: 78vh;
-    padding-top: 8px;
-    padding-right: 77vh;
-    padding-left: 80vh;
+    left: 25%;
+    width: 50%;
+    height: auto;
+
 }
 #names{
     position: fixed;

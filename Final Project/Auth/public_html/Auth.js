@@ -1,7 +1,16 @@
-// Ayden DaCosta
-// This is the authentication process JavaScript
+/*
+Group Members:
+Milo Osterman
+Keala Goodell
+Joshua Andrews
+Ayden DaCosta
 
-// Handle the login form submission
+Course: CSC337
+
+File: Auth.js
+
+Purpose: Handle login form submissiion
+*/
 document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('login-form').addEventListener('submit', login);
   document.getElementById('register-form').addEventListener('submit', register);
