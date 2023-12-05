@@ -12,9 +12,12 @@ button:hover {
     border: 1px #7f7 solid;
 }
 
+input {
+    background-color: darkslategrey;
+}
+
 #login-error-message, #register-error-message {
     color: red;
-
 }
 
 body {
@@ -29,8 +32,13 @@ h1 {
     margin-bottom: 0;
 }
 
+#requirements{
+    font-size: 12px;
+}
+
 #GameLogo {
     width: 75%;
+    padding-top: 1em;
 }
 
 #parent-wrapper {
