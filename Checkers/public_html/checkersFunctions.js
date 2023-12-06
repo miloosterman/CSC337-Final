@@ -210,17 +210,21 @@ function onLoad() {
 				this.dictionary[row] + 
 				";left:"+this.dictionary[col]+
 				";'></div>");
-				return countTiles+1;
+			tiles[countTiles]= new Tile($("#tile"+countTiles), 
+				[parseInt(row), parseInt(col)]);
+			return countTiles+1;
 		},
 		playerDraw: function (playerNum, row, col, countPieces) {
-			$(`.player${playerNum}pieces`).append("<div class='piece' id='tile" +
-				countPieces + 
-				"' style='top:" + 
-				this.dictionary[col] + 
-				";'></div>");
+			console.log("<div class='piece' id='" +
+				countPieces + "' style='top:" + this.dictionary[row] + 
+				"; left:" + this.dictionary[col] + ";></div>");
+				
+			$(`.player${playerNum}pieces`).append("<div class='piece' id='" +
+				countPieces + "' style='top:" + this.dictionary[row] + 
+				"; left:" + this.dictionary[col] + ";'></div>");
 			pieces[countPieces] = 
 				new Piece($("#"+countPieces), [parseInt(row), parseInt(col)]);
-			return countPieces;
+			return countPieces+1;
 		},
 		// Check if location is part of game
 		isValidMove: function (row, col) {
@@ -276,10 +280,11 @@ function onLoad() {
 					k.canMove = true;
 				}
 			}
-		/* 
-		* Returns a String representation of the gameBoard for debugging and 
-		* transferring through server
-		*/
+		},
+			/* 
+			* Returns a String representation of the gameBoard for debugging and 
+			* transferring through server
+			*/
 		board_toString: function () {
 			ret = ""
 			for (let i in this.board) {
@@ -301,9 +306,8 @@ function onLoad() {
 					}
 				}
 			}
-		return ret
+			return ret
 		}
-		
 	} // End Board Object
 	
 	// Initialize the game
