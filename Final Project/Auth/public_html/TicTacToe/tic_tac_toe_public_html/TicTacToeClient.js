@@ -18,7 +18,6 @@ let gamerunning = false;
 //moves are named using the html divs
 const movenames = ["upleft", "upmid", "upright", "midleft", "midmid", "midright", "downleft", "downmid", "downright"];
 let gameEnded = false; //flag to track if the game has ended
-
 window.onload = function() {
 
     //reset the game
@@ -29,6 +28,9 @@ window.onload = function() {
         moveElement.addEventListener('click', () => playerTurn('X', index));
     });
 
+  
+}
+
     //use user input to play a move in the game
     function playerTurn(piece, move) {
         if (gameEnded) {
@@ -36,7 +38,6 @@ window.onload = function() {
         }
         //get move location from user input
         player_e_id = movenames[move];
-        console.log(piece, move, gamemode, player_e_id);
         console.log(localStorage.getItem("username"));
         let player = localStorage.getItem('username');
         let playerElement = document.getElementById(player_e_id);
@@ -44,50 +45,13 @@ window.onload = function() {
         let url = 'http://localhost:80/tictac/move/' + move + '/' + gamemode + '/' + player;
         fetch(url, { method: 'POST', body: move, gamemode, player })
             .then(response => response.json())
-            .then(data => {
-                /*
-                if(gamemode == 'pve'){
-                //get new board and winner from server reply
-                let winner = data.winner;
-                let board = data.board;
-                //place X or O on board based on if location taken from player or AI
-                for (let i = 0; i < board.length; i++) {
-                    let playerpiece = '';
-                    if (board[i] == 1) {
-                        playerpiece = 'X';
-                    } else if (board[i] == 2) {
-                        playerpiece = 'O';
-                    } else {
-                        continue;
-                    }
-                    let e_id = movenames[i];
-                    let aiElement = document.getElementById(e_id);
-                    aiElement.innerHTML = playerpiece;
-                }
-                // if game over, end game, create a replay button, alert who won.
-                if(winner != "") { 
-                    alert('Game Over Winner Is: ' + winner);
-                    var button = document.createElement("button");
-                    button.id = "Replay";
-                    button.innerHTML = "Replay";
-                    button.onclick = function() {
-                        //reset game
-                        ReplayTicTac();
-                    };
-                    document.body.appendChild(button);
-                    gameEnded = true; // Set the flag to true when the game ends
-                }
-    
-            }
-                */            
+            .then(data => {         
             })
             .catch( (error) => {
                 console.log('Score not added');
                 console.log(error);
             });
     }
-  
-}
 
     //send replay request to server to clear the board and winner
     function ReplayTicTac() {
@@ -116,6 +80,7 @@ window.onload = function() {
                 if(gamemode == 'pvp'){
                     changeMode();
                 }
+                getBoard();
                 //set to false to replay game.
                 gameEnded = false;
             });
@@ -188,13 +153,12 @@ function changeMode(){
         gamemode = 'pve';
         //set server to call from function playvplay
         //begin update board on both client sides
-        button.innerHTML = 'Play Alone!';
+        button.innerHTML = 'Play with Strangers!';
         let player = localStorage.getItem('username');
         let url = 'http://localhost:80/tictac/move/' + 100 + '/' + gamemode + '/' + player;
         fetch(url, { method: 'POST', body: 100, gamemode, player })
             .then(response => response.json())
             .then(data => {});
-        button.innerHTML = 'Play with Strangers!';
     }
     console.log(gamemode)
 }

@@ -19,8 +19,7 @@ Purpose: CSS for tic-tac-toe
   top: 20%;
   left: 0;
   position: fixed;
-  background-image: URL("images/TicTacToeTempBack.jpg");
-  height: 80%;
+  
   width: 100%;
   background-size: cover;
   display: flex;
@@ -29,19 +28,25 @@ Purpose: CSS for tic-tac-toe
 }
 
 html {
+  background-image: URL("images/TicTacToeTempBack.jpg");
+  height: 80%;
   background-color: mediumpurple;
-  color: black;
+  color: aliceblue;
+  display: flex;
   text-align: center;
+  position: fixed;
 }
 
 h1 {
   width: 100%;
+  text-align: center;
 }
 
 h2 {
   width: 100%;
   position: fixed;
   top: 7%;
+  text-align: center;
   font-size: 40px;
 }
 
@@ -49,6 +54,7 @@ h2 {
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
 }
 
 button {
@@ -57,6 +63,7 @@ button {
 }
 
 table {
+  top: 50%;
   color: antiquewhite;
   margin: auto;
   width: 300px;
