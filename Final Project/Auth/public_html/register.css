@@ -1,139 +1,79 @@
 /*
+Group Members:
+Milo Osterman
+Keala Goodell
+Joshua Andrews
 Ayden DaCosta
-This is the CSS document thats acts as the design for the sign into the GamePage
+
+Course: CSC337
+
+File: register.css
+
+Purpose: CSS for registration page
 */
-
-h1{
-    position: fixed;
-    font-size: 41px;
-    margin-left: -8px;
-    margin-top: -9px;
-    padding-right: 24.7%;
-    background-color: limegreen;
-    padding-left: 448px;
-    padding-top: 57px;
-    padding-bottom: 75vh;
-    border-style: solid;
-    border-width: 18px;
-    text-align: center;
+* {
+    font-family: 'Press Start 2p', serif;
+    color: #7f7;
 }
 
-
-
-
-#login-username{
-    position: fixed;
-    font-size: 19px;
-    margin-top: 33vh;
-    margin-left: 77vh;
-    border-style: solid;
-    border-width: 3px;
-    border-color: black;
+button {
+    margin-top: 1em;
+    background-color: lightgrey;
 }
 
-
-
-#login-password{
-    position: fixed;
-    font-size: 19px;
-    margin-top: 42.5vh;
-    margin-left: 77vh;
-    border-style: solid;
-    border-width: 3px;
-    border-color: black;
+button:hover {
+    border: 1px #7f7 solid;
 }
 
-
-#login-error-message{
-    position: fixed;
-    font-size: 13px;
-    margin-top: 26vh;
-    margin-left: 437px;
+input {
+    background-color: darkslategrey;
 }
 
-#login-button{
-    position: fixed;
-    font-size: 22px;
-    margin-top: 50.5vh;
-    margin-left: 107vh;
-}
-
-#createheader{
-    position: fixed;
-    font-size: 26px;
-    margin-top: 55vh;
-    margin-left: 63vh;
-}
-
-
-#register-username{
-    position: fixed;
-    font-size: 17px;
-    margin-top: 61vh;
-    margin-left: 78vh;
-    border-style: solid;
-    border-width: 3px;
-    border-color: black;
-}
-
-#register-password{
-    position: fixed;
-    font-size: 17px;
-    margin-top: 70.5vh;
-    margin-left: 78vh;
-    margin-right: 20px;
-    border-style: solid;
-    border-width: 3px;
-    border-color: black;
-
-}
-
-#loginheader{
-    position: fixed;
-    font-size: 30px;
-    margin-top: 23.5vh;
-    margin-left: 63vh;
-}
-
-#submit-button{
-    position: fixed;
-    font-size: 3vh;
-    margin-top: 82vh;
-    margin-left: 82vh;
-}
-
-#register-error-message{
-    position: fixed;
-    margin-left: 304px;
-    margin-top: 68vh;
+#login-error-message, #register-error-message {
     color: red;
-
 }
 
-#logoImage{
-    z-index: 1;
-    position: fixed;
-    margin-top: 30vh;
-    height: 23vh;
-    margin-left: 20ch;
-    border-style: solid;
-    border-color: gray;
-    border-width: 9px;
+body {
+    background-image: url(IMG/arcade-screen.jpeg);
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+    padding: 10%;
 }
 
-#icon{
-    z-index: 1;
-    position: fixed;
-    margin-top: 30vh;
-    margin-left: 135vh;
-    border-color: green;
-    border-style: solid;
-    border-width: 20px;
+h1 {
+    margin-bottom: 0;
 }
+
 #requirements{
-    margin-left: 69vh;
-    position: fixed;
-    color: black;
-    margin-top: 75vh;
-    font-size: 15px;
+    font-size: 12px;
+}
+
+#GameLogo {
+    width: 75%;
+    padding-top: 1em;
+}
+
+#parent-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+#intro {
+    text-align: center;
+    max-width: 50%;
+    align-items: center;
+}
+
+
+#auth-container {
+    max-width: 50%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
 }

@@ -1,9 +1,15 @@
 /*
+Group Members:
+Milo Osterman
 Keala Goodell
-This Client-Side Code is used for Snake. 
-Upon loading, the game is reset.
-This code uses a series of functions to 
-run the game.
+Joshua Andrews
+Ayden DaCosta
+
+Course: CSC337
+
+File: snakeclient.js
+
+Purpose: JavaScript for snake
 */
 
 //base game start. Set direction to right, clear board, set score to 0, put food in start position
