@@ -42,13 +42,13 @@ body {
 	background-color: Red;
 	overflow: hidden;
 }
-.tile {
+#board .tile {
 	width: 10vmin;
 	height: 10vmin;
 	position: absolute;
 	background-color: Black;
 }
-.player1pieces .piece {
+#board .player1pieces .piece {
 	position: absolute;
 	width: 8vmin;
 	height: 8vmin;
@@ -63,12 +63,12 @@ body {
 	margin-top: 1vmin;
 	margin-left: 1vmin;
 	cursor: pointer;
-	border: 1vmin solid #B93848;
+	border: 1vmin solid red;
 }
-.player1pieces .piece.selected {
-	box-shadow: 0 0 10px 5px #16A8C7;
+#board .player1pieces .piece.selected {
+	box-shadow: 0 0 10px 5px Blue;
 }
-.player2pieces .piece {
+#board .player2pieces .piece {
 	position: absolute;
 	width: 8vmin;
 	height: 8vmin;
@@ -85,6 +85,6 @@ body {
 	cursor: pointer;
 	border: 1vmin solid #8b8bff;
 }
-.player2pieces .piece.selected {
+#board .player2pieces .piece.selected {
 	box-shadow: 0 0 10px 5px #16A8C7;
 }

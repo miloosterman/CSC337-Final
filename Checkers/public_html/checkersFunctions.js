@@ -36,7 +36,7 @@ function onLoad() {
 		// Upgrades piece to a king
 		this.king = false;
 		this.makeKing = function () {
-			this.element.css('backgroundImage', "url('img/king" + this.player + '.png');
+			this.element.css('backgroundImage', "url('img/king" + this.player + '.jpg');
 			this.king = true;
 		}
 		// movement
@@ -276,11 +276,39 @@ function onLoad() {
 					k.canMove = true;
 				}
 			}
+		/* 
+		* Returns a String representation of the gameBoard for debugging and 
+		* transferring through server
+		*/
+		board_toString: function () {
+			ret = ""
+			for (let i in this.board) {
+				for (let j in this.board[i]) {
+					var found = false
+					for (let k of pieces) {
+						if (k.position[0] == i && k.position[1] == j) {
+							if (k.king) {
+								ret += (this.board[i][j] + 2)
+							} else {
+								ret += this.board[i][j];
+							}
+						found = true
+						break
+						}
+					}
+					if (!found) {
+						ret += '0'
+					}
+				}
+			}
+		return ret
 		}
-	}
+		
+	} // End Board Object
 	
 	// Initialize the game
 	Board.init();
+	
 	
 	// Listeners
 	
