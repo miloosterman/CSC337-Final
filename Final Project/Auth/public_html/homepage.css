@@ -55,45 +55,19 @@ button:hover {
     justify-content: space-evenly;
 }
 
-#background{
-    position: fixed;
-    background-color: darkviolet;
-    color: mediumpurple;
-    margin-left: -2vh;
-    z-index: 0;
-    width: 20vh;
-    height: 101vh;
-    margin-top: -2vh;
-}
-#background2{
-    position: fixed;
-    background-color: darkviolet;
-    color: white;
-    margin-left: 187vh;
-    z-index: 0;
-    width: 20vh;
-    height: 101vh;
-    margin-top: -2vh;
-}
-#titleBackground{
-    position: fixed;
-    
-    width: 188vh;
-    height: 101vh;
-    z-index: -1;
-    background-color: blueviolet;
-}
-#mostClickedGameInfo{
-    position: fixed;
-    margin-top: -22vh;
-    margin-left: 40vh;
+#scoreParent {
+    margin-top: 1em;
 }
 
-#MostClicked{
-    position: fixed;
-    margin-left: 43vh;
-    margin-top: -24vh;
+#mostClickedGame {
+    border: 1px dashed #7f7;
+    width: fit-content;
+    margin: auto;
+    padding: 1em;
+    margin-top: 3em;
 }
+
+
 #rankings{
     margin-bottom: 5em;
 }
