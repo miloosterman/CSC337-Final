@@ -1,13 +1,13 @@
-window.onload = function () {
+function onLoad() {
 	// New Game Board
-	var gameBoard = [
-		[0, 1, 0, 1, 0, 1, 0, 1]
-		[1, 0, 1, 0, 1, 0, 1, 0]
-		[0, 1, 0, 1, 0, 1, 0, 1]
-		[0, 0, 0, 0, 0, 0, 0, 0]
-		[0, 0, 0, 0, 0, 0, 0, 0]
-		[2, 0, 2, 0, 2, 0, 2, 0]
-		[0, 2, 0, 2, 0, 2, 0, 2]
+	var gameBoard = 
+		[[0, 1, 0, 1, 0, 1, 0, 1],
+		[1, 0, 1, 0, 1, 0, 1, 0],
+		[0, 1, 0, 1, 0, 1, 0, 1],
+		[0, 0, 0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0, 0, 0],
+		[2, 0, 2, 0, 2, 0, 2, 0],
+		[0, 2, 0, 2, 0, 2, 0, 2],
 		[2, 0, 2, 0, 2, 0, 2, 0]];
 	var pieces = [];
 	var tiles = [];
@@ -24,7 +24,7 @@ window.onload = function () {
 		// element in DOM
 		this.element = element;
 		// location on board as [row, col]
-		this.position = position;
+		this.position = position;	
 		// which player?
 		this.player = '';
 		// find which player by piece id
@@ -35,7 +35,7 @@ window.onload = function () {
 		}
 		// Upgrades piece to a king
 		this.king = false;
-		this.makeKing() {
+		this.makeKing = function () {
 			this.element.css('backgroundImage', "url('img/king" + this.player + '.png');
 			this.king = true;
 		}
@@ -56,7 +56,7 @@ window.onload = function () {
 			// Remove piece on Board
 			Board.board[this.position[0]][this.position[1]] = 0;
 			// add piece at new location
-			Board.board[tile.position[0][tile.position[1]]=this.player;
+			Board.board[tile.position[0]][tile.position[1]]=this.player;
 			// Update piece instance location
 			this.position = [tile.position[0], tile.position[1]];
 			// Mod CSS based off of dictionary
@@ -89,7 +89,7 @@ window.onload = function () {
 			}
 			// Jump is on board
 			if ((newPosition[0] > 7) || (newPosition[0] < 0) ||
-				(newPosition[1] > 7) || (newPosition[1] < 0) {
+				(newPosition[1] > 7) || (newPosition[1] < 0)) {
 					return false;
 				}
 				// checks captured piece
@@ -213,14 +213,14 @@ window.onload = function () {
 				return countTiles+1;
 		},
 		playerDraw: function (playerNum, row, col, countPieces) {
-			$('.player${playerNumber}pieces').append("<div class='piece' id='tile" +
+			$(`.player${playerNum}pieces`).append("<div class='piece' id='tile" +
 				countPieces + 
 				"' style='top:" + 
 				this.dictionary[col] + 
 				";'></div>");
-			pieces[countPieces] = new Piece($("#"+countPieces), 
-				[parseInt(row), parseInt[col]);
-				return countPieces;
+			pieces[countPieces] = 
+				new Piece($("#"+countPieces), [parseInt(row), parseInt(col)]);
+			return countPieces;
 		},
 		// Check if location is part of game
 		isValidMove: function (row, col) {
