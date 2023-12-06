@@ -36,7 +36,7 @@ function onLoad() {
 		// Upgrades piece to a king
 		this.king = false;
 		this.makeKing = function () {
-			this.element.css('backgroundImage', "url('img/king" + this.player + '.jpg');
+			this.element.css('backgroundImage', "url('king" + this.player + '.png');
 			this.king = true;
 		}
 		// movement
@@ -63,14 +63,14 @@ function onLoad() {
 			this.element.css('top', Board.dictionary[this.position[0]]);
 			this.element.css('left', Board.dictionary[this.position[1]]);
 			// Promotes a piece if it hits opposing team's side
-			if (!this.king && (this.position[0] == 0 || this.position == 7)) {
+			if (!this.king && (this.position[0] == 0 || this.position[0] == 7)) {
 				this.makeKing();
 				return true;
 		}};
 		
 		// Checks if able to capture enemy piece
 		this.canJump = function () {
-			return (this.oppJump([this.position[0]+2, this.position[1]+2]) ||
+			return (this.canOppJump([this.position[0]+2, this.position[1]+2]) ||
 				this.canOppJump([this.position[0]+2, this.position[1]-2]) ||
 				this.canOppJump([this.position[0]-2, this.position[1]+2]) ||
 				this.canOppJump([this.position[0]-2, this.position[1]-2]))
@@ -82,8 +82,8 @@ function onLoad() {
 			var y = newPosition[0] - this.position[0];
 			// Not a backjump if not king
 			if (!this.king) {
-				if ((this.player == 1 && (newPosition.position[0] < this.position[0])) ||
-					(this.player == 2 && (newPosition.position[0] > this.position[0]))) {
+				if ((this.player == 1 && (newPosition[0] < this.position[0])) ||
+					(this.player == 2 && (newPosition[0] > this.position[0]))) {
 						return false;
 					}
 			}
@@ -91,28 +91,28 @@ function onLoad() {
 			if ((newPosition[0] > 7) || (newPosition[0] < 0) ||
 				(newPosition[1] > 7) || (newPosition[1] < 0)) {
 					return false;
-				}
-				// checks captured piece
-				var tileToCheckx = this.position[1] + x/2;
-				var tileToChecky = this.position[0] + y/2;
-				if ((tileToCheckx > 7) || (tileToCheckx < 0) || 
-					(tileToChecky > 7) || (tileToChecky < 0)) {
-						return false;
+			}
+			// checks captured piece
+			var tileToCheckx = this.position[1] + x/2;
+			var tileToChecky = this.position[0] + y/2;
+			if ((tileToCheckx > 7) || (tileToCheckx < 0) || 
+				(tileToChecky > 7) || (tileToChecky < 0)) {
+					return false;
+			}
+			if (!Board.isValidMove(tileToChecky, tileToCheckx) && 
+				Board.isValidMove(newPosition[0], newPosition[1])) {
+				// find piece at newPosition
+				for (let i in pieces) {
+					if (pieces[i].position[0] == tileToChecky && 
+						pieces[i].position[1] == tileToCheckx) {
+						if (this.player != pieces[i].player) {
+							// return the piece selected
+							return pieces[i];
+						}
 					}
-				if (!Board.isValidMove(tileToChecky, tileToCheckx) && 
-					Board.isValidMove(newPosition[0], newPosition[1])) {
-					// find piece at newPosition
-					for (let i in pieces) {
-						if (pieces[i].position[0] == tileToChecky && 
-							pieces[i].position[1] == tileToCheckx) {
-							if (this.player != pieces[i].player) {
-								// return the piece selected
-								return pieces[i];
-							}
-							}
-					}
 				}
-				return false;
+			}
+			return false;
 		};
 		this.oppJump = function (tile) {
 			var toRemove = this.canOppJump(tile.position);
@@ -147,25 +147,84 @@ function onLoad() {
 			}
 		}
 	}
-	function Tile(element, position) {
+	function Tile(element, position) { 
 		// linked element
 		this.element = element;
 		// position on board
 		this.position = position;
 		// if moveable from selected position
 		this.inRange = function (piece) {
-			for (let k in pieces) {
-				if ((k.position[0] == this.position[0] && k.position[1] == this.position[1]) ||
-					(!piece.king &&  
-						(piece.player == 1 && this.position[0] < piece.position[0]) ||
-						(piece.player == 2 && this.position[0] > piece.position[0]))) {
+			// piece.position == from location
+			// this.position == to location
+			console.log("Piece Info: \n   canMove: " + 
+				piece.canMove + "\n   element: " +
+				piece.element + "\n   position: " +
+				piece.position + "\n   player: " +
+				piece.player + "\n   king: " +
+				piece.king);
+			console.log("This info: \n   Position: " + this.position);
+			/*
+			// Moving backwards, not if not king
+			if (!piece.king && (
+				(piece.player == 1 && (this.position[0] < piece.position[0])) ||
+				(piece.player == 2 && (this.position[0] > piece.position[0])))) {
+					return 'Out of Range';
+			}
+			*/
+			for (let k of pieces) {
+				// piece.position == from location
+				// this.position == to location
+				// k.position == a piece at a location on the board
+				console.log('k pos: ' + k.position);
+				// piece in selected spot to move to
+				if (k.position[0] == this.position[0] && k.position[1] == this.position[1]) {
 					return 'Out of Range';
 				}
-				if (dist(this.position[0], this.position[1], piece.position[0], piece.position[1]) == 2 * Math.sqrt(2)) {
-					// still gonna ramp it
-					return 'jump';
+				// tried moving backwards with a non-king
+				if (!piece.king &&  
+						((piece.player == 1 && this.position[0] < piece.position[0]) ||
+						(piece.player == 2 && this.position[0] > piece.position[0]))) {
+						console.log("can't go backwards with non-king");
+					return 'Out of Range';
+				}
+				// 
+				
+				if (
+					// 1 row up
+					((piece.position[0]-this.position[0] == -1) && 
+						// left
+						(piece.position[1]-this.position[1] == -1) ||
+						// right
+						(piece.position[1]-this.position[1] == 1)) ||
+					// 1 row down
+					((piece.position[0]-this.position[0] == 1) && 
+						// left
+						(piece.position[1]-this.position[1] == -1) ||
+						// right
+						(piece.position[1]-this.position[1] == 1))
+						) {
+					console.log('normal');
+					return 'normal';
 				}
 				
+				if (
+					// 2 rows up
+					((piece.position[0]-this.position[0] == -2) && 
+						// 2 left
+						(piece.position[1]-this.position[1] == -2) ||
+						// 2 right
+						(piece.position[1]-this.position[1] == 2)) ||
+					// 2 rows down
+					((piece.position[0]-this.position[0] == 2) && 
+						// 2 left
+						(piece.position[1]-this.position[1] == -2) ||
+						// 2 right
+						(piece.position[1]-this.position[1] == 2))
+						) {
+					//console.log('jump');
+					return 'jump';
+				}
+				console.log('range didnt work');
 			};
 		}
 	}
@@ -215,10 +274,11 @@ function onLoad() {
 			return countTiles+1;
 		},
 		playerDraw: function (playerNum, row, col, countPieces) {
+			/*
 			console.log("<div class='piece' id='" +
 				countPieces + "' style='top:" + this.dictionary[row] + 
 				"; left:" + this.dictionary[col] + ";></div>");
-				
+			*/
 			$(`.player${playerNum}pieces`).append("<div class='piece' id='" +
 				countPieces + "' style='top:" + this.dictionary[row] + 
 				"; left:" + this.dictionary[col] + ";'></div>");
@@ -270,13 +330,14 @@ function onLoad() {
 				// if there is a jump allowed, those pieces have their jump 
 				// attribute set
 				if (k.position.length != 0 && k.player == this.playerTurn && k.canJump()) {
+					console.log('Board.canJump == true');
 					this.jumpExists = true;
 					k.canMove = true;
 				}
 			}
 			// if no jump, can move any piece
 			if (!this.jumpExists) {
-				for (let k in pieces) {
+				for (let k of pieces) {
 					k.canMove = true;
 				}
 			}
@@ -322,7 +383,7 @@ function onLoad() {
 		var isPlayerTurn = ($(this).parent().attr("class").split(' ')[0] == "player" + Board.playerTurn + "pieces");
 		
 		if (isPlayerTurn) {
-			if (!Board.continuousJump && pieces[$(this).attr("id")].allowedMove) {
+			if (!Board.continuousJump && pieces[$(this).attr("id")].canMove) {
 				if ($(this).hasClass('selected')) {
 					selected = true;
 				}
@@ -349,28 +410,30 @@ function onLoad() {
 	// Piece movement through clicks
 	$('.tile').on("click", function () {
 		if ($('.selected').length != 0) {
-			var tileID = $(this).attr('id').replace(/tile/, '');
+			var tileID = $(this).attr("id").replace(/tile/, '');
 			var tile = tiles[tileID];
 			// Piece clicked on
 			var piece = pieces[$('.selected').attr('id')];
 			// can be moved to
 			var inRange = tile.inRange(piece);
+			console.log("Range: " + inRange);
 			if (inRange != 'Out of Range') {
 				// check for continuous jumps
 				if (inRange == 'jump') {
+					console.log('Jumps');
 					if (piece.oppJump(tile)) {
 						piece.move(tile);
 						if (piece.canJump()) {
 							// last player to move must make another jump
 							// also, reselect last moved piece
 							piece.element.addClass('selected');
-							// can't deselect it
+							// can't deselect last piece
 							Board.continuousJump = true;
 						} else {
 							Board.changeTurn();
 						}
 					}
-				} else if (inRange == 'regular' && !Board.jumpExists) {
+				} else if (inRange == 'normal' && !Board.jumpExists) {
 					if (!piece.canJump()) {
 						piece.move(tile);
 						Board.changeTurn();
@@ -379,6 +442,7 @@ function onLoad() {
 					}
 				}
 			}
+			
 		}
 	});
 }
