@@ -20,6 +20,19 @@ app.set("json spaces", 2);
 const mongoDBURL = 'mongodb://127.0.0.1:27017/final';
 
 
+app.use(
+  session({
+    secret: 'mySecret',
+    resave: false,
+    saveUninitialized: true,
+    store: MongoStore.create({ mongoUrl: mongoDBURL }),
+    cookie: {
+      secure: false,
+      httpOnly: true,
+    },
+  })
+);
+
 mongoose.connect(mongoDBURL, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
 
@@ -37,6 +50,73 @@ const UserSchema = new Schema({
 });
 var User = mongoose.model('User', UserSchema);
 
+
+const GameClickSchema = new Schema({
+  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  gameName: String,
+  clicks: { type: Number, default: 0 }
+});
+var GameClick = mongoose.model('GameClick', GameClickSchema);
+
+app.post('/game-click', async (req, res) => {
+  let gameName = req.body.gameName;
+  let userId = req.session.userId; // Assuming userId is stored in session
+  console.log('game', gameName, 'user', userId);
+
+  // Logic to update the game click count
+  const clickRecord = await GameClick.findOne({ user: userId, gameName: gameName });
+ 
+  if (clickRecord) {
+   
+    clickRecord.clicks += 1;
+    await clickRecord.save();
+  } else {
+    await new GameClick({ user: userId, gameName: gameName, clicks: 1 }).save();
+  }
+
+  // After updating the click count, calculate the favorite game
+  const favoriteGame = await calculateFavoriteGame(userId);
+ 
+
+
+  // Sending the favorite game as part of the response (optional)
+  res.status(200).json({ message: 'Game click recorded', favoriteGame: favoriteGame });
+});
+async function calculateFavoriteGame(userId) {
+  console.log('calculateFavoriteGame');
+  try {
+    // Find the most-clicked game for the given user
+    const mostClickedGame = await GameClick.findOne({ user: userId }).sort({ clicks: -1 });
+  
+
+    if (!mostClickedGame) {
+      return null;
+    }
+
+    const favoriteGameName = mostClickedGame.gameName;
+
+    // Aggregate the total clicks for the favorite game across all users
+    const gameClickCount = await GameClick.aggregate([
+      { $match: { gameName: favoriteGameName } },
+      { $group: { _id: null, totalCount: { $sum: "$clicks" } } },
+    ]);
+
+    if (gameClickCount.length === 0) {
+      return null;
+    }
+
+    const totalClicks = gameClickCount[0].totalCount;
+    return { gameName: favoriteGameName, totalClicks };
+   
+  } catch (error) {
+    console.error('Error calculating favorite game:', error);
+    return null;
+  }
+}
+app.get('/most-clicked-game', async (req, res) => {
+
+res.json( await calculateFavoriteGame(req.session.userId));
+});
 
 // Score
 var ScoreSchema = new Schema(
@@ -91,18 +171,7 @@ function authenticate(req, res, next) {
 }
 
 
-app.use(
-  session({
-    secret: 'mySecret',
-    resave: false,
-    saveUninitialized: true,
-    store: MongoStore.create({ mongoUrl: mongoDBURL }),
-    cookie: {
-      secure: false,
-      httpOnly: true,
-    },
-  })
-);
+
 
 // Login endpoint
 app.post('/login', async (req, res) => {
@@ -111,6 +180,7 @@ try {
   const user = await User.findOne({ username: username });
 
   if (user) {
+    console.log(user);
     console.log('Password:', password);
     console.log('User Salt:', user.salt);
     console.log('User Hash:', user.hash);
@@ -534,7 +604,9 @@ app.post('/snake/:PLAYER/:SNAKESCORE', (req, res) => {
         }
     });
   })
+  app.listen(port, () => {
+    console.log(`App listening at http://localhost:${port}`);
+  });
+  
 
-app.listen(port, () => {
-  console.log(`App listening at http://localhost:${port}`);
-});
+  
