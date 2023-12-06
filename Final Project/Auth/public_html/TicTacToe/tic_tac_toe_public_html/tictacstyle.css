@@ -16,38 +16,16 @@ Purpose: CSS for tic-tac-toe
   font-family: 'Press Start 2p', sans-serif;
 }
 .GameBoard {
-  top: 20%;
-  left: 0;
-  position: fixed;
-  
   width: 100%;
-  background-size: cover;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  border: 8px solid aliceblue;
+  padding: 1em;
+  width: fit-content;
+  margin: auto;
 }
 
 html {
   background-image: URL("images/TicTacToeTempBack.jpg");
-  height: 80%;
-  background-color: mediumpurple;
   color: aliceblue;
-  display: flex;
-  text-align: center;
-  position: fixed;
-}
-
-h1 {
-  width: 100%;
-  text-align: center;
-}
-
-h2 {
-  width: 100%;
-  position: fixed;
-  top: 7%;
-  text-align: center;
-  font-size: 40px;
 }
 
 #header {
@@ -55,6 +33,7 @@ h2 {
   flex-direction: column;
   align-items: center;
   text-align: center;
+  margin-bottom: 3em;
 }
 
 button {
@@ -99,7 +78,7 @@ tr:last-child td {
 
 #Replay {
   position: absolute;
-  bottom: 15%;
+  bottom: 25%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
