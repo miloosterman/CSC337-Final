@@ -205,7 +205,7 @@ function onLoad() {
 			}
 		},
 		tileDraw: function (row, col, countTiles) {
-			this.tilesElement.append("<div class='title' id='tile" + 
+			this.tilesElement.append("<div class='tile' id='tile" + 
 				countTiles + "' style='top:" + 
 				this.dictionary[row] + 
 				";left:"+this.dictionary[col]+
