@@ -9,11 +9,12 @@
 	<!--
 	title: checkers.html
 	author: Joshua S. Andrews
-	purpose: contains the html for a checkers game.
+	purpose: contains the html for a checkers game and also the heading info 
+		for our website
 	-->
 </head>
 
-<body onload='onLoad();'>
+<body>
 	<div id='headings'>
 		<h1>Checkers</h1>
 		<h2>View Scoreboard</h2>
@@ -21,20 +22,16 @@
 			onclick="location.href = '../../Final Project/Auth/public_html/Homepage.html'">
 			Back To Main
 		</button>
+		
 	</div>
 	<div id='gameSpace'>
-		<div class='pData' id='p1Data'>
-			<table id='p1Table' class='pTable'>
-			</table>
-		</div>
-		<div id='gameBoardArea'>
-			<canvas></canvas>
-		</div>
-		<div class='pData' id='p2Data'>
-			<table id='p2Table' class='pTable'>
-			</table>
+		<button id='cleargame'>New Game</button>
+		<div id='board'>
+			<div class='tiles'></div>
+			<div class='pieces'></div>
+			<div class='player1pieces'></div>
+			<div class='player2pieces'></div>
 		</div>
 	</div>
 </body>
--->
 </html>
