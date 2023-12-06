@@ -85,14 +85,14 @@ button:hover {
 }
 #mostClickedGameInfo{
     position: fixed;
-    margin-top: 30vh;
-    margin-left: 28vh;
+    margin-top: -22vh;
+    margin-left: 40vh;
 }
 
 #MostClicked{
     position: fixed;
-    margin-left: 30vh;
-    margin-top: 24vh;
+    margin-left: 43vh;
+    margin-top: -24vh;
 }
 #rankings{
     margin-bottom: 5em;
