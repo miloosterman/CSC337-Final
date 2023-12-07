@@ -15,9 +15,10 @@ function onLoad() {
 	// Load Player Names and Data
 	var playerData = function () {
 		var players = document.getElementsByClassName('player');
-		for (i of players) {
+		for (i in players) {
 			console.log(i);
-			i.innerHTML = "<div id='"+$(i)+"data'></div>";
+			players[i].innerHTML = 
+				"<p id='player"+i+"data'>Player "+i+"</p>";
 		}
 	};
 	

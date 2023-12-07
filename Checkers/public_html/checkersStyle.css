@@ -22,7 +22,6 @@ body {
 	width: 100%;
 	text-align: center;
 }
-
 #gameSpace {
 	position: fixed;
 	top: 166.667px;
@@ -31,22 +30,24 @@ body {
 	margin: 10px;
 	padding: 10px;
 	background-color: green;
-	display: inline-block;
+	display: block;
 }
 #cleargame {
 	text-align: center;
 	margin-left: 40%;
 	margin-right: 40%;
 }
-.player{
-	position: relative;
+#board .player{
+	position: fixed;
 	top: 5px;
 	left: 5px;
-	width: 20%;
-	height: auto;
-	background-color: Black;
+	width: 19vmin;
+	height: 80vmin;
+	background-color: Blue;
 	display: inline-block;
+	text-align: center;
 }
+
 #board {
 	position: relative;
 	top: 5px;
