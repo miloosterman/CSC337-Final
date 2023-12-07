@@ -10,12 +10,18 @@ function onLoad() {
 		[0, 2, 0, 2, 0, 2, 0, 2],
 		[2, 0, 2, 0, 2, 0, 2, 0]];
 	var pieces = [];
-	var tiles = [];
+	var squares = [];
 	
-	// distance formula
-	var dist = function (x1, x2, y1, y2) {
-		return Math.sqrt(Math.pow((x1-x2), 2) + Math.pow((y1-y2), 2));
-	}
+	// Load Player Names and Data
+	var playerData = function () {
+		var players = document.getElementsByClassName('player');
+		for (i of players) {
+			console.log(i);
+			i.innerHTML = "<div id='"+$(i)+"data'></div>";
+		}
+	};
+	
+	playerData();
 	
 	// Player Piece's object class
 	function Piece(element, position) {
@@ -40,25 +46,25 @@ function onLoad() {
 			this.king = true;
 		}
 		// movement
-		this.move = function (tile) {
+		this.move = function (square) {
 			this.element.removeClass('selected');
 			// can't do move, return false
-			if (!Board.isValidMove(tile.position[0], tile.position[1])) {
+			if (!Board.isValidMove(square.position[0], square.position[1])) {
 				return false;
 			}
 			// Non-king cannot move backwards
 			if (this.king == false) {
-				if ((this.player == 1 && (tile.position[0] < this.position[0])) ||
-					(this.player == 2 && (tile.position[0] > this.position[0]))) {
+				if ((this.player == 1 && (square.position[0] < this.position[0])) ||
+					(this.player == 2 && (square.position[0] > this.position[0]))) {
 						return false;
 					}
 			}
 			// Remove piece on Board
 			Board.board[this.position[0]][this.position[1]] = 0;
 			// add piece at new location
-			Board.board[tile.position[0]][tile.position[1]]=this.player;
+			Board.board[square.position[0]][square.position[1]]=this.player;
 			// Update piece instance location
-			this.position = [tile.position[0], tile.position[1]];
+			this.position = [square.position[0], square.position[1]];
 			// Mod CSS based off of dictionary
 			this.element.css('top', Board.dictionary[this.position[0]]);
 			this.element.css('left', Board.dictionary[this.position[1]]);
@@ -93,18 +99,18 @@ function onLoad() {
 					return false;
 			}
 			// checks captured piece
-			var tileToCheckx = this.position[1] + x/2;
-			var tileToChecky = this.position[0] + y/2;
-			if ((tileToCheckx > 7) || (tileToCheckx < 0) || 
-				(tileToChecky > 7) || (tileToChecky < 0)) {
+			var squareX = this.position[1] + x/2;
+			var squareY = this.position[0] + y/2;
+			if ((squareX > 7) || (squareX < 0) || 
+				(squareY > 7) || (squareY < 0)) {
 					return false;
 			}
-			if (!Board.isValidMove(tileToChecky, tileToCheckx) && 
+			if (!Board.isValidMove(squareY, squareX) && 
 				Board.isValidMove(newPosition[0], newPosition[1])) {
 				// find piece at newPosition
 				for (let i in pieces) {
-					if (pieces[i].position[0] == tileToChecky && 
-						pieces[i].position[1] == tileToCheckx) {
+					if (pieces[i].position[0] == squareY && 
+						pieces[i].position[1] == squareX) {
 						if (this.player != pieces[i].player) {
 							// return the piece selected
 							return pieces[i];
@@ -114,8 +120,8 @@ function onLoad() {
 			}
 			return false;
 		};
-		this.oppJump = function (tile) {
-			var toRemove = this.canOppJump(tile.position);
+		this.oppJump = function (square) {
+			var toRemove = this.canOppJump(square.position);
 			// remove piece if exists
 			if (toRemove) {
 				toRemove.remove();
@@ -147,7 +153,7 @@ function onLoad() {
 			}
 		}
 	}
-	function Tile(element, position) { 
+	function Square(element, position) { 
 		// linked element
 		this.element = element;
 		// position on board
@@ -236,22 +242,22 @@ function onLoad() {
 		playerTurn: 1,
 		jumpExists: false,
 		continuousJump: false,
-		tilesElement: $('div.tiles'),
-		// for converting position to viewport distances
+		squaresElement: $('div.squares'),
+		// spacing for a 100 pixel board on display
 		dictionary: ['0vmin', '10vmin', '20vmin', '30vmin', '40vmin', '50vmin', '60vmin', '70vmin', '80vmin', '90vmin'],
 		// initialize board
 		init: function () {
 			var countPieces = 0;
-			var countTiles = 0;
+			var countSquares = 0;
 			for (let row in this.board) {
 				for (let col in this.board[row]) {
 					if (row % 2 == 1) {
 						if (col % 2 == 0) {
-							countTiles = this.tileDraw(row,col, countTiles);
+							countSquares = this.squareDraw(row,col, countSquares);
 						}
 					} else {
 						if (col % 2 == 1) {
-							countTiles = this.tileDraw(row,col, countTiles);
+							countSquares = this.squareDraw(row,col, countSquares);
 						}
 					}
 					if (this.board[row][col] == 1) {
@@ -263,15 +269,15 @@ function onLoad() {
 				}
 			}
 		},
-		tileDraw: function (row, col, countTiles) {
-			this.tilesElement.append("<div class='tile' id='tile" + 
-				countTiles + "' style='top:" + 
+		squareDraw: function (row, col, countSquares) {
+			this.squaresElement.append("<div class='square' id='square" + 
+				countSquares + "' style='top:" + 
 				this.dictionary[row] + 
 				";left:"+this.dictionary[col]+
 				";'></div>");
-			tiles[countTiles]= new Tile($("#tile"+countTiles), 
+			squares[countSquares]= new Square($("#square"+countSquares), 
 				[parseInt(row), parseInt(col)]);
-			return countTiles+1;
+			return countSquares+1;
 		},
 		playerDraw: function (playerNum, row, col, countPieces) {
 			/*
@@ -408,21 +414,21 @@ function onLoad() {
 	});
 	
 	// Piece movement through clicks
-	$('.tile').on("click", function () {
+	$('.square').on("click", function () {
 		if ($('.selected').length != 0) {
-			var tileID = $(this).attr("id").replace(/tile/, '');
-			var tile = tiles[tileID];
+			var squareID = $(this).attr("id").replace(/square/, '');
+			var square = squares[squareID];
 			// Piece clicked on
 			var piece = pieces[$('.selected').attr('id')];
 			// can be moved to
-			var inRange = tile.inRange(piece);
+			var inRange = square.inRange(piece);
 			console.log("Range: " + inRange);
 			if (inRange != 'Out of Range') {
 				// check for continuous jumps
 				if (inRange == 'jump') {
 					console.log('Jumps');
-					if (piece.oppJump(tile)) {
-						piece.move(tile);
+					if (piece.oppJump(square)) {
+						piece.move(square);
 						if (piece.canJump()) {
 							// last player to move must make another jump
 							// also, reselect last moved piece
@@ -435,7 +441,7 @@ function onLoad() {
 					}
 				} else if (inRange == 'normal' && !Board.jumpExists) {
 					if (!piece.canJump()) {
-						piece.move(tile);
+						piece.move(square);
 						Board.changeTurn();
 					} else {
 						alert("If you can, you must jump!");

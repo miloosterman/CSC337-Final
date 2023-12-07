@@ -31,18 +31,33 @@ body {
 	margin: 10px;
 	padding: 10px;
 	background-color: green;
+	display: inline-block;
 }
-
+#cleargame {
+	text-align: center;
+	margin-left: 40%;
+	margin-right: 40%;
+}
+.player{
+	position: relative;
+	top: 5px;
+	left: 5px;
+	width: 20%;
+	height: auto;
+	background-color: Black;
+	display: inline-block;
+}
 #board {
-	position: absolute;
-	top: calc(50%-40vmin);
-	left: calc(50%-40vmin);
+	position: relative;
+	top: 5px;
+	left: 5px;
 	width: 80vmin;
 	height: 80vmin;
 	background-color: Red;
 	overflow: hidden;
+	display:inline-block;
 }
-#board .tile {
+#board .square {
 	width: 10vmin;
 	height: 10vmin;
 	position: absolute;
