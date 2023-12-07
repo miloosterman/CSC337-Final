@@ -11,63 +11,78 @@ File: homepage.css
 
 Purpose: CSS for homepage
 */
-* {
-    color: #7f7;
-    font-family: 'Press Start 2p', sans-serif;
-}
+* { 
+    color: #7f7; 
+    font-family: 'Press Start 2p', sans-serif; 
+} 
 
-body {
-    background-image: url(IMG/main-back.jpeg);
-    background-size: cover;
-    background-position: center center;
-    background-attachment: fixed;
-    padding: 2% 5% 5% 10%;
-    text-align: center;
-}
+body { 
+    background-image: url(IMG/main-back.jpeg); 
+    background-size: cover; 
+    background-position: center center; 
+    background-attachment: fixed; 
+    padding: 2% 5% 5% 10%; 
+    text-align: center; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+} 
 
-a:hover {
-    opacity: 50%;
-}
+a:hover { 
+    opacity: 50%; 
+} 
 
-button {
-    margin-top: 1em;
-    background-color: lightgrey;
-}
+button { 
+    margin-top: 1em; 
+    background-color: lightgrey; 
+} 
 
-button:hover {
-    opacity: 50%;
-}
+button:hover { 
+    opacity: 50%; 
+} 
 
-#GameLogo {
-    width: 50%;
-    height: auto;
-}
+#GameLogo { 
+    width: 50%; 
+    height: auto; 
+} 
 
-#games-parent img {
-    width: 100%;
-    max-height: 100%;
-    margin-bottom: 1em;
-}
+#games-parent img { 
+    width: 100%; 
+    max-height: 100%; 
+    margin-bottom: 1em; 
+} 
 
-#games-parent {
-    display: grid;
-    grid-template-columns: 200px 200px 200px;
-    justify-content: space-evenly;
-}
-
-#scoreParent {
-    margin-top: 1em;
-}
-
-#mostClickedGame {
-    border: 1px dashed #7f7;
-    width: fit-content;
-    margin: auto;
-    padding: 1em;
-    margin-top: 3em;
+#games-parent { 
+    display: flex; 
+    flex-direction: row; 
+    justify-content: center;
+    align-items: center;
+    height: auto; 
+    margin-bottom: 1em; 
 }
 
 
-#rankings{
-    margin-bottom: 5em;
+#games-parent figure { 
+    margin: 1em; 
+    text-align: center; 
+    width: 200px; 
+    display: inline-block; 
+} 
+
+#scoreParent { 
+    margin-top: 1em; 
+} 
+
+#mostClickedGame { 
+    border: 1px dashed #7f7; 
+    width: fit-content; 
+    margin: auto; 
+    padding: 1em; 
+    margin-top: 0em; 
+} 
+
+#rankings{ 
+    margin-bottom: 5em; 
 }
