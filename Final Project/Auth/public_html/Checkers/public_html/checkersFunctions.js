@@ -12,6 +12,8 @@ function onLoad() {
 	var pieces = [];
 	var squares = [];
 	
+	/*
+	COmmented out to remove div error
 	// Load Player Names and Data
 	var playerData = function () {
 		var players = document.getElementsByClassName('player');
@@ -23,7 +25,7 @@ function onLoad() {
 	};
 	
 	playerData();
-	
+	*/
 	// Player Piece's object class
 	function Piece(element, position) {
 		// Can move, not jump
