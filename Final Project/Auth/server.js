@@ -1,3 +1,17 @@
+/*
+Group Members:
+Milo Osterman
+Keala Goodell
+Joshua Andrews
+Ayden DaCosta
+
+Course: CSC337
+
+File: server.js
+
+Purpose: Server for the GamePage
+*/
+
 // Ayden DaCosta
 // This is the server side of the PA 8
 const express = require('express');

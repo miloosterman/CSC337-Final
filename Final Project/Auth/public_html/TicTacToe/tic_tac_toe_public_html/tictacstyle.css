@@ -17,7 +17,6 @@ Purpose: CSS for tic-tac-toe
 }
 .GameBoard {
   width: 100%;
-  border: 8px solid aliceblue;
   padding: 1em;
   width: fit-content;
   margin: auto;
