@@ -1,8 +1,19 @@
-<!-- Ayden DaCosta
-This is the html used for the registration and the sign in
+<!--
+Group Members:
+Milo Osterman
+Keala Goodell
+Joshua Andrews
+Ayden DaCosta
+
+Course: CSC337
+
+File: Register.html
+
+Purpose: HTML structure for registration page
 -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,32 +21,41 @@ This is the html used for the registration and the sign in
     'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://;">
     <title>GamePage - Login or Register</title>
     <link type="text/css" rel="stylesheet" href="register.css">
-    <script src="Auth.js"></script> 
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <script src="Auth.js"></script>
 </head>
+
 <body>
-    <h1>Welcome to GamePage...Please Sign In:</h1>
-    
-    <img src="IMG/gamepage.jpg" alt="gamepage" id ="logoImage">
-    <img src="IMG/gamepad.jpg" alt="control" id ="icon">
+    <div id="parent-wrapper">
+        <div id="intro">
+            <h1>Welcome to</h1>
+            <img src="IMG/gamepage-logo.svg" alt="GamePage logo" id="GameLogo">
+            <h2>Please Sign In</h2>
+            <p id="requirements"> Password Requirements: One special character, one lowercase, one uppercase, one number.</p>
+        </div>
 
+        <div id="auth-container">
+            <form id="login-form" onsubmit="return login(event);">
+                <h2 id="loginheader">Login</h2>
+                <input type="text" id="login-username" placeholder="Username" required>
+                <input type="password" id="login-password" placeholder="Password" required
+                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{6,}">
+                <br>
+                <button id="login-button" type="submit">Login</button>
+                <p id="login-error-message"></p>
+            </form>
 
-    <div id="auth-container">
-        <form id="login-form" onsubmit="return login(event);">
-            <h2 id="loginheader">Login</h2>
-            <input type="text" id="login-username" placeholder="Username" required>
-            <input type="password" id="login-password" placeholder="Password" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{6,}">
-            <button id ="login-button" type="submit">Login</button>
-            <p id="login-error-message"></p>
-        </form>
-
-        <form id="register-form" onsubmit="return register(event);">
-            <h2 id="createheader">Register</h2>
-            <input type="text" id="register-username" placeholder="Username" required>
-            <input type="password" id="register-password" placeholder="Password" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{6,}">
-            <button id="submit-button" type="submit">Create Account</button>
-            <p id="register-error-message"></p>
-            <h3 id="requirements"> One Special, One lowercase, One uppercase, and One number</h3>
-        </form>
+            <form id="register-form" onsubmit="return register(event);">
+                <h2 id="createheader">Register</h2>
+                <input type="text" id="register-username" placeholder="Username" required>
+                <input type="password" id="register-password" placeholder="Password" required
+                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{6,}">
+                <br>
+                <button id="submit-button" type="submit">Create Account</button>
+                <p id="register-error-message"></p>
+            </form>
+        </div>
     </div>
 </body>
+
 </html>

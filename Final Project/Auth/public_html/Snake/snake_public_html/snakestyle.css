@@ -1,0 +1,75 @@
+/*
+Group Members:
+Milo Osterman
+Keala Goodell
+Joshua Andrews
+Ayden DaCosta
+
+Course: CSC337
+
+File: snakestyle.css
+
+Purpose: CSS for tic-tac-toe
+*/
+
+#snake-logo {
+    width: 50%;
+    height: auto;
+    position: absolute;
+    bottom:70%;
+    left: 30%;
+}
+
+body {
+    background-image: url(../../IMG/snake-back.jpeg);
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+    text-align: center;
+    overflow: hidden
+}
+
+.gameboard{
+    top:20%;
+    left:0;
+    position: absolute;
+    color: antiquewhite;
+    height: 80%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#points {
+    position: absolute;
+    top: 25%;
+    right: 25%;
+    font-size: 24px;
+    color: white;
+}
+
+#Replay {
+    position: absolute;
+    bottom: 10%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+#home{
+    position: fixed;
+    top: 30%;
+    right:45%;
+    left:45%;
+    z-index: 1;
+}
+
+#snakehome{
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%)
+}
