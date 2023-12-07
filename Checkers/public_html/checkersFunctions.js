@@ -12,6 +12,7 @@ function onLoad() {
 	var pieces = [];
 	var squares = [];
 	
+	/*
 	// Load Player Names and Data
 	var playerData = function () {
 		var players = document.getElementsByClassName('player');
@@ -23,6 +24,7 @@ function onLoad() {
 	};
 	
 	playerData();
+	*/
 	
 	// Player Piece's object class
 	function Piece(element, position) {
