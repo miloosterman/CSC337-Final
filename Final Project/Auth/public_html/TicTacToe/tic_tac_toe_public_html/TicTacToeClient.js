@@ -42,7 +42,7 @@ window.onload = function() {
         let player = localStorage.getItem('username');
         let playerElement = document.getElementById(player_e_id);
         //make url to send to server
-        let url = 'http://localhost:80/tictac/move/' + move + '/' + gamemode + '/' + player;
+        let url = 'http://143.198.117.187:80/tictac/move/' + move + '/' + gamemode + '/' + player;
         fetch(url, { method: 'POST', body: move, gamemode, player })
             .then(response => response.json())
             .then(data => {         
@@ -57,7 +57,7 @@ window.onload = function() {
     function ReplayTicTac() {
         let player = localStorage.getItem('username');
         console.log('player', player);
-        let url = 'http://localhost:80/reset/tictac/' + player;
+        let url = 'http://143.198.117.187:80/reset/tictac/' + player;
         fetch(url, { method: 'POST', body: player })
             .then(data => {
                 // Get the button element
@@ -90,7 +90,7 @@ window.onload = function() {
 function getBoard() {
     //grab player to find gameboard server side.
     let player = localStorage.getItem('username');
-    fetch('http://localhost:80/tictac/board/' + gamemode + '/' + player)
+    fetch('http://143.198.117.187:80/tictac/board/' + gamemode + '/' + player)
         .then(response => response.json())
         .then(data => {
             console.log('getboard', data)
@@ -144,7 +144,7 @@ function changeMode(){
         //begin update board on both client sides
         button.innerHTML = 'Play Alone!';
         let player = localStorage.getItem('username');
-        let url = 'http://localhost:80/tictac/move/' + 100 + '/' + gamemode + '/' + player;
+        let url = 'http://143.198.117.187:80/tictac/move/' + 100 + '/' + gamemode + '/' + player;
         fetch(url, { method: 'POST', body: 100, gamemode, player })
             .then(response => response.json())
             .then(data => {});
@@ -155,7 +155,7 @@ function changeMode(){
         //begin update board on both client sides
         button.innerHTML = 'Play with Strangers!';
         let player = localStorage.getItem('username');
-        let url = 'http://localhost:80/tictac/move/' + 100 + '/' + gamemode + '/' + player;
+        let url = 'http://143.198.117.187:80/tictac/move/' + 100 + '/' + gamemode + '/' + player;
         fetch(url, { method: 'POST', body: 100, gamemode, player })
             .then(response => response.json())
             .then(data => {});
