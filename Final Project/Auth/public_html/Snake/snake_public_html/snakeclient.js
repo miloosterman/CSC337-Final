@@ -222,7 +222,7 @@ function sendScore(score) {
     let player = localStorage.getItem('username');
     let playerScore = score;
     //make url to send to server
-    let url = 'http://localhost:80/snake/' + player +'/'+ playerScore;
+    let url = 'http://143.198.117.187:80/snake/' + player +'/'+ playerScore;
     fetch(url, { method: 'POST', body: player, playerScore})
         .then(response => response.json())
         .catch( (error) => {

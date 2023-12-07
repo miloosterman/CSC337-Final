@@ -24,7 +24,7 @@ function fetchScores() {
       game = 'CheckerWin'
   }
   console.log(game)
-  let url = 'http://localhost:80/scores/' + game;
+  let url = 'http://143.198.117.187:80/scores/' + game;
   fetch(url, { method: 'GET'})
   .then(response => response.json()) // Add this line to parse the response as JSON
   .then(scores => {
