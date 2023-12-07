@@ -1,16 +1,3 @@
-<!--
-Group Members:
-Milo Osterman
-Keala Goodell
-Joshua Andrews
-Ayden DaCosta
-
-Course: CSC337
-
-File: Homepage.html
-
-Purpose: HTML for homepage
--->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,40 +9,35 @@ Purpose: HTML for homepage
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-    <script src="Hompage.js" defer></script>
+    <script src="Hompage.js" defer></script> 
 </head>
 
 <body id="selection-body">
-    <img src="IMG/gamepage-logo.svg" alt="GamePage logo" id="GameLogo">
+    <img src="IMG/gamepage-logo.gif" alt="GamePage logo" id="GameLogo">
     <section id="rankings">
-        <h2 id="title">Choose Your Game!</h2>
-        <a id="help" href="./help.html">Need help?</a>
-        <div id="scoreParent">
-            <button id="Scoreboard">Scoreboard</button>
-        </div>
-
+        <button id="Scoreboard" >Scoreboard</button>
+        <button id="Ranking">Ranking</button>
     </section>
+    <h2 id="title">Choose Your Game!</h2>
+    <a id="help" href="./help.html">Need help?</a>
     <section id="games-parent">
-        <figure>
-            <li><a class="game-link" id="snakeGame" href="./Snake/snake_public_html/snake.html"><img src="IMG/snake.jpg"
-                        id="snakeGame" alt="snake image"></a></li>
-            <figcaption id="Snake">Snake</figcaption>
-        </figure>
-        <figure>
-            <li><a class="game-link" id="ticTacGame" href="./TicTacToe/tic_tac_toe_public_html/tictac.html"><img
-                        src="IMG/tictactoe.jpg" id="ticTacGame" alt="tic-tac-toe image"></a></li>
-            <figcaption id="Tic">Tic-Tac-Toe</figcaption>
-        </figure>
-        <figure>
-            <li><a class="game-link" id="checkersGame" href="./checkers.html"><img src="IMG/checkers.jpg"
-                        id="checkersGame" alt="checkers image"></a></li>
-            <figcaption id="check">Checkers</figcaption>
-        </figure>
+        <ul id="game-list">
+            <p id="rankDesc">This is the Leaderboard of all the local users that use this</p>
+            <p id="scoreDesc">This is the ScoreBoard of your local rivals that are playing these games</p>
+            <figure>
+                <li><a id="snakeGame" href="../../../Snake/snake_public_html/snake.html"><img src="IMG/snake.jpg" alt="snake image"></a></li>
+                <figcaption id="Snake">Snake</figcaption>
+            </figure>
+            <figure>
+                <li><a id="ticTacGame" href="../../../TicTacToeAI/tic_tac_toe_ai_public_html/tictac.html"><img src="IMG/tictactoe.jpg" alt="tic-tac-toe image"></a></li>
+                <figcaption id="Tic">Tic-Tac-Toe</figcaption>
+            </figure>
+            <figure>
+                <li><a id="checkersGame" href="../../../Checkers/public_html/checkers.html"><img src="IMG/checkers.jpg" alt="checkers image"></a></li>
+                <figcaption id ="check">Checkers</figcaption>
+            </figure>
+        </ul>
     </section>
-    <div id="mostClickedGame">
-        <h3 id="MostClicked">Favorite game:</h3>
-        <p id="mostClickedGameInfo"></p>
-    </div>
 </body>
 
 </html>
