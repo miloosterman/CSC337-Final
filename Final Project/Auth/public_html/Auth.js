@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
       })
       .catch((error) => {
         console.error('Registration error:', error);
-        document.getElementById('register-error-message').textContent = 'Registration failed';
+       // document.getElementById('register-error-message').textContent = 'Registration failed';
       });
   }
 });
